@@ -24,7 +24,20 @@
     "title": "Settings",
     "configure_instance": "Configure {instance}",
     "save": "Save",
-    "test_field": "Test field"
+    "interface_label": "Interface",
+    "interface_placeholder": "Choose an interface",
+    "disabled": "Disabled",
+    "enabled": "Enabled",
+    "DHCP_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum ac leo non tempus. Nam mollis, ipsum ut mollis imperdiet.",
+    "DHCP_enable_label": "Enable DHCP",
+    "DHCP_start_label": "Range IP start",
+    "DHCP_end_label": "Range IP end",
+    "DHCP_lease_label": "Lease time",
+    "DHCP_lease_hint": "Hours",
+    "DNS_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum ac leo non tempus. Nam mollis, ipsum ut mollis imperdiet.",
+    "DNS_enable_label": "Enable DNS",
+    "DNS_primary_label": "Primary forwarding server",
+    "DNS_secondary_label": "Secondary forwarding server"
   },
   "about": {
     "title": "About"

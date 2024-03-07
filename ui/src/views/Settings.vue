@@ -23,15 +23,22 @@
       <cv-column>
         <cv-tile light>
           <cv-form @submit.prevent="configureModule">
-            <!-- TODO remove test field and code configuration fields -->
-            <cv-text-input
-              :label="$t('settings.test_field')"
-              v-model="testField"
-              :placeholder="$t('settings.test_field')"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              :invalid-message="error.testField"
-              ref="testField"
-            ></cv-text-input>
+            <cv-combo-box
+              v-model="interfaceField"
+              :title="$t('settings.interface_label')"
+              :label="$t('settings.interface_placeholder')"
+              :invalid-message="error.interfaceField"
+              :auto-filter="true"
+              :auto-highlight="true"
+              :options="availableInterfaces"
+              :disabled="
+                loading.getConfiguration ||
+                loading.configureModule ||
+                loading.getAvailableInterfaces
+              "
+              ref="interfaceField"
+            >
+            </cv-combo-box>
             <cv-row v-if="error.configureModule">
               <cv-column>
                 <NsInlineNotification
@@ -53,6 +60,145 @@
         </cv-tile>
       </cv-column>
     </cv-row>
+    <div v-if="!interfaceField">
+      <cv-row>
+        <cv-column>
+          <cv-tile light>
+            <cv-form @submit.prevent="configureModule">
+              <h4>DHCP</h4>
+              <div class="title-description mg-bottom-xlg">
+                {{ $t("settings.DHCP_description") }}
+              </div>
+              <NsToggle
+                :label="$t('settings.DHCP_enable_label')"
+                v-model="DHCPEnableField"
+                value="DHCPEnableField"
+                formItem
+                ref="DHCPEnableField"
+              >
+                <template slot="text-left">{{
+                  $t("settings.disabled")
+                }}</template>
+                <template slot="text-right">{{
+                  $t("settings.enabled")
+                }}</template>
+              </NsToggle>
+              <div v-if="DHCPEnableField">
+                <cv-text-input
+                  :label="$t('settings.DHCP_start_label')"
+                  v-model="DHCPStartField"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  :invalid-message="error.DHCPStartField"
+                  ref="DHCPStartField"
+                ></cv-text-input>
+                <cv-text-input
+                  :label="$t('settings.DHCP_end_label')"
+                  v-model="DHCPEndField"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  :invalid-message="error.DHCPEndField"
+                  ref="DHCPEndField"
+                ></cv-text-input>
+                <cv-text-input
+                  :label="$t('settings.DHCP_lease_label')"
+                  :helper-text="$t('settings.DHCP_lease_hint')"
+                  v-model="DHCPLeaseField"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  :invalid-message="error.DHCPLeaseField"
+                  ref="DHCPLeaseField"
+                >
+                </cv-text-input>
+              </div>
+              <cv-row v-if="error.configureModule">
+                <cv-column>
+                  <NsInlineNotification
+                    kind="error"
+                    :title="$t('action.configure-module')"
+                    :description="error.configureModule"
+                    :showCloseButton="false"
+                  />
+                </cv-column>
+              </cv-row>
+              <NsButton
+                kind="secondary"
+                :icon="Save20"
+                :loading="loading.configureModule"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                >{{ $t("settings.save") }}</NsButton
+              >
+            </cv-form>
+          </cv-tile>
+        </cv-column>
+      </cv-row>
+      <cv-row>
+        <cv-column>
+          <cv-tile light>
+            <cv-form @submit.prevent="configureModule">
+              <h4>DNS</h4>
+              <div class="title-description mg-bottom-xlg">
+                {{ $t("settings.DNS_description") }}
+              </div>
+              <NsToggle
+                :label="$t('settings.DNS_enable_label')"
+                v-model="DNSEnableField"
+                value="DNSEnableField"
+                formItem
+                ref="DNSEnableField"
+              >
+                <template slot="text-left">{{
+                  $t("settings.disabled")
+                }}</template>
+                <template slot="text-right">{{
+                  $t("settings.enabled")
+                }}</template>
+              </NsToggle>
+              <div v-if="DNSEnableField">
+                <cv-text-input
+                  :label="$t('settings.DNS_primary_label')"
+                  v-model="DNSPrimaryField"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  :invalid-message="error.DNSPrimaryField"
+                  ref="DNSPrimaryField"
+                ></cv-text-input>
+                <cv-text-input
+                  :label="$t('settings.DNS_secondary_label')"
+                  v-model="DNSSecondaryField"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  :invalid-message="error.DNSSecondaryField"
+                  ref="DNSSecondaryField"
+                ></cv-text-input>
+              </div>
+              <cv-row v-if="error.configureModule">
+                <cv-column>
+                  <NsInlineNotification
+                    kind="error"
+                    :title="$t('action.configure-module')"
+                    :description="error.configureModule"
+                    :showCloseButton="false"
+                  />
+                </cv-column>
+              </cv-row>
+              <NsButton
+                kind="secondary"
+                :icon="Save20"
+                :loading="loading.configureModule"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                >{{ $t("settings.save") }}</NsButton
+              >
+            </cv-form>
+          </cv-tile>
+        </cv-column>
+      </cv-row>
+    </div>
   </cv-grid>
 </template>
 
@@ -85,15 +231,34 @@ export default {
         page: "settings",
       },
       urlCheckInterval: null,
-      testField: "", // TODO remove
+      configuration: {},
+      availableInterfaces: [],
+      configure: {},
+      interfaceField: "",
+      DHCPEnableField: false,
+      DHCPStartField: "",
+      DHCPEndField: "",
+      DHCPLeaseField: 0,
+      DNSEnableField: false,
+      DNSPrimaryField: "",
+      DNSSecondaryField: "",
       loading: {
         getConfiguration: false,
         configureModule: false,
+        getAvailableInterfaces: false,
       },
       error: {
         getConfiguration: "",
         configureModule: "",
-        testField: "", // TODO remove
+        getAvailableInterfaces: "",
+        interfaceField: "",
+        DHCPEnableField: "",
+        DHCPStartField: "",
+        DHCPEndField: "",
+        DHCPLeaseField: "",
+        DNSEnableField: "",
+        DNSPrimaryField: "",
+        DNSSecondaryField: "",
       },
     };
   },
@@ -162,24 +327,22 @@ export default {
 
       // TODO set configuration fields
       // ...
+      this.console // TODO remove
+        .log("config", config);
 
-      // TODO remove
-      console.log("config", config);
-
-      // TODO focus first configuration field
-      this.focusElement("testField");
+      this.focusElement("interfaceField");
     },
     validateConfigureModule() {
       this.clearErrors(this);
       let isValidationOk = true;
 
-      // TODO remove testField and validate configuration fields
-      if (!this.testField) {
+      // TODO remove interfaceField and validate configuration fields
+      if (!this.interfaceField) {
         // test field cannot be empty
-        this.error.testField = this.$t("common.required");
+        this.error.interfaceField = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("testField");
+          this.focusElement("interfaceField");
           isValidationOk = false;
         }
       }
