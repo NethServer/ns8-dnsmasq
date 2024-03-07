@@ -34,7 +34,7 @@
               :disabled="
                 loading.getConfiguration ||
                 loading.configureModule ||
-                loading.getAvailableInterfaces
+                loading.getAvailableInterfacesBeforeConfiguration
               "
               ref="interfaceField"
             >
@@ -60,7 +60,7 @@
         </cv-tile>
       </cv-column>
     </cv-row>
-    <div v-if="!interfaceField">
+    <div v-if="configuration.interface">
       <cv-row>
         <cv-column>
           <cv-tile light>
@@ -233,24 +233,23 @@ export default {
       urlCheckInterval: null,
       configuration: {},
       availableInterfaces: [],
-      configure: {},
       interfaceField: "",
       DHCPEnableField: false,
       DHCPStartField: "",
       DHCPEndField: "",
-      DHCPLeaseField: 0,
+      DHCPLeaseField: 12,
       DNSEnableField: false,
       DNSPrimaryField: "",
       DNSSecondaryField: "",
       loading: {
         getConfiguration: false,
         configureModule: false,
-        getAvailableInterfaces: false,
+        getAvailableInterfacesBeforeConfiguration: false,
       },
       error: {
         getConfiguration: "",
         configureModule: "",
-        getAvailableInterfaces: "",
+        getAvailableInterfacesBeforeConfiguration: "",
         interfaceField: "",
         DHCPEnableField: "",
         DHCPStartField: "",
@@ -276,9 +275,68 @@ export default {
     next();
   },
   created() {
-    this.getConfiguration();
+    this.getAvailableInterfacesBeforeConfiguration();
   },
   methods: {
+    async getAvailableInterfacesBeforeConfiguration() {
+      this.loading.getAvailableInterfacesBeforeConfiguration = true;
+      this.error.getAvailableInterfacesBeforeConfiguration = "";
+      const taskAction = "get-available-interfaces";
+      const eventId = this.getUuid();
+
+      // register to task error
+      this.core.$root.$once(
+        `${taskAction}-aborted-${eventId}`,
+        this.getAvailableInterfacesAborted
+      );
+
+      // register to task completion
+      this.core.$root.$once(
+        `${taskAction}-completed-${eventId}`,
+        this.getAvailableInterfacesCompleted
+      );
+
+      const res = await to(
+        this.createModuleTaskForApp(this.instanceName, {
+          action: taskAction,
+          extra: {
+            title: this.$t("action." + taskAction),
+            isNotificationHidden: true,
+            eventId,
+          },
+        })
+      );
+      const err = res[0];
+
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.getAvailableInterfacesBeforeConfiguration =
+          this.getErrorMessage(err);
+        this.loading.getAvailableInterfacesBeforeConfiguration = false;
+        return;
+      }
+    },
+    getAvailableInterfacesAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getAvailableInterfacesBeforeConfiguration = this.$t(
+        "error.generic_error"
+      );
+      this.loading.getAvailableInterfacesBeforeConfiguration = false;
+    },
+    getAvailableInterfacesCompleted(taskContext, taskResult) {
+      this.loading.getAvailableInterfacesBeforeConfiguration = false;
+      console.log("available ", taskResult.output.data);
+      const interfaces = [];
+      taskResult.output.data.forEach((interf) => {
+        interfaces.push({
+          name: interf,
+          label: interf,
+          value: interf,
+        });
+      });
+      this.availableInterfaces = interfaces;
+      this.getConfiguration();
+    },
     async getConfiguration() {
       this.loading.getConfiguration = true;
       this.error.getConfiguration = "";
@@ -324,19 +382,24 @@ export default {
     getConfigurationCompleted(taskContext, taskResult) {
       this.loading.getConfiguration = false;
       const config = taskResult.output;
+      this.configuration = config;
 
-      // TODO set configuration fields
-      // ...
-      this.console // TODO remove
-        .log("config", config);
+      const dhcp_server = config["dhcp-server"];
+      const dns_server = config["dns-server"];
 
-      this.focusElement("interfaceField");
+      this.interfaceField = config["interface"];
+      this.DHCPEnableField = dhcp_server["enabled"];
+      this.DHCPStartField = dhcp_server["start"];
+      this.DHCPEndField = dhcp_server["end"];
+      this.DHCPLeaseField = dhcp_server["lease"].toString();
+      this.DNSEnableField = dns_server["enabled"];
+      this.DNSPrimaryField = dns_server["primary-server"];
+      this.DNSSecondaryField = dns_server["secondary-server"];
     },
     validateConfigureModule() {
       this.clearErrors(this);
       let isValidationOk = true;
 
-      // TODO remove interfaceField and validate configuration fields
       if (!this.interfaceField) {
         // test field cannot be empty
         this.error.interfaceField = this.$t("common.required");
@@ -346,16 +409,77 @@ export default {
           isValidationOk = false;
         }
       }
+      if (this.DHCPEnableField) {
+        if (!this.DHCPStartField) {
+          // test field cannot be empty
+          this.error.DHCPStartField = this.$t("common.required");
+
+          if (isValidationOk) {
+            this.focusElement("DHCPStartField");
+            isValidationOk = false;
+          }
+        }
+        if (!this.DHCPEndField) {
+          // test field cannot be empty
+          this.error.DHCPEndField = this.$t("common.required");
+
+          if (isValidationOk) {
+            this.focusElement("DHCPEndField");
+            isValidationOk = false;
+          }
+        }
+        if (!this.DHCPLeaseField) {
+          // test field cannot be empty
+          this.error.DHCPLeaseField = this.$t("common.required");
+
+          if (isValidationOk) {
+            this.focusElement("DHCPLeaseField");
+            isValidationOk = false;
+          }
+        }
+      }
+      if (this.DNSEnableField && !this.DNSPrimaryField) {
+        // test field cannot be empty
+        this.error.DNSPrimaryField = this.$t("common.required");
+
+        if (isValidationOk) {
+          this.focusElement("DNSPrimaryField");
+          isValidationOk = false;
+        }
+      }
+
       return isValidationOk;
     },
     configureModuleValidationFailed(validationErrors) {
       this.loading.configureModule = false;
+      console.log(validationErrors);
 
       for (const validationError of validationErrors) {
-        const param = validationError.parameter;
-
-        // set i18n error message
-        this.error[param] = this.$t("settings." + validationError.error);
+        if (validationError.field === "dhcp-server.start") {
+          this.error.DHCPStartField = this.$t(
+            "settings." + validationError.error
+          );
+        }
+        if (validationError.field === "dhcp-server.end") {
+          this.error.DHCPEndField = this.$t(
+            "settings." + validationError.error
+          );
+        }
+        if (validationError.field === "dhcp-server.lease") {
+          this.error.DHCPLeaseField = this.$t(
+            "settings." + validationError.error
+          );
+        }
+        if (validationError.field === "dns-server.primary-server") {
+          this.error.DNSPrimaryField = this.$t(
+            "settings." + validationError.error
+          );
+        }
+        if (validationError.field === "dns-server.secondary-server") {
+          this.error.DNSSecondaryField = this.$t(
+            "settings." + validationError.error
+          );
+        }
       }
     },
     async configureModule() {
@@ -390,7 +514,18 @@ export default {
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
           data: {
-            // TODO configuration fields
+            interface: this.interfaceField,
+            "dhcp-server": {
+              enabled: this.DHCPEnableField,
+              start: this.DHCPStartField,
+              end: this.DHCPEndField,
+              lease: parseInt(this.DHCPLeaseField),
+            },
+            "dns-server": {
+              enabled: this.DNSEnableField,
+              "primary-server": this.DNSPrimaryField,
+              "secondary-server": this.DNSSecondaryField,
+            },
           },
           extra: {
             title: this.$t("settings.configure_instance", {

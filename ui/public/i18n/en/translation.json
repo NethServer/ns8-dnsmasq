@@ -37,7 +37,10 @@
     "DNS_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum ac leo non tempus. Nam mollis, ipsum ut mollis imperdiet.",
     "DNS_enable_label": "Enable DNS",
     "DNS_primary_label": "Primary forwarding server",
-    "DNS_secondary_label": "Secondary forwarding server"
+    "DNS_secondary_label": "Secondary forwarding server",
+    "dhcp-server_format": "Format ipv4 required",
+    "dns-server_format": "Format ipv4 required",
+    "dns-server_number_one_of": "Must validate one and only one schema"
   },
   "about": {
     "title": "About"
