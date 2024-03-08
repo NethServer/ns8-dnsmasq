@@ -19,185 +19,186 @@
         />
       </cv-column>
     </cv-row>
-    <cv-row>
+    <cv-row v-if="error.configureModule">
+      <cv-column>
+        <NsInlineNotification
+          kind="error"
+          :title="$t('action.configure-module')"
+          :description="error.configureModule"
+          :showCloseButton="false"
+        />
+      </cv-column>
+    </cv-row>
+    <cv-row
+      v-if="
+        loading.getConfiguration ||
+        loading.getAvailableInterfacesBeforeConfiguration
+      "
+    >
       <cv-column>
         <cv-tile light>
-          <cv-form @submit.prevent="configureModule">
-            <cv-combo-box
-              v-model="interfaceField"
-              :title="$t('settings.interface_label')"
-              :label="$t('settings.interface_placeholder')"
-              :invalid-message="error.interfaceField"
-              :auto-filter="true"
-              :auto-highlight="true"
-              :options="availableInterfaces"
-              :disabled="
-                loading.getConfiguration ||
-                loading.configureModule ||
-                loading.getAvailableInterfacesBeforeConfiguration
-              "
-              ref="interfaceField"
-            >
-            </cv-combo-box>
-            <cv-row v-if="error.configureModule">
-              <cv-column>
-                <NsInlineNotification
-                  kind="error"
-                  :title="$t('action.configure-module')"
-                  :description="error.configureModule"
-                  :showCloseButton="false"
-                />
-              </cv-column>
-            </cv-row>
-            <NsButton
-              kind="primary"
-              :icon="Save20"
-              :loading="loading.configureModule"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              >{{ $t("settings.save") }}</NsButton
-            >
-          </cv-form>
+          <cv-skeleton-text width="100px" class="mg-bottom-lg" />
+          <cv-skeleton-text width="70%" heading class="mg-bottom-lg" />
+          <cv-button-skeleton size="default" />
         </cv-tile>
       </cv-column>
     </cv-row>
-    <div v-if="configuration.interface">
+    <div v-else>
       <cv-row>
         <cv-column>
           <cv-tile light>
             <cv-form @submit.prevent="configureModule">
-              <h4>DHCP</h4>
-              <div class="title-description mg-bottom-xlg">
-                {{ $t("settings.DHCP_description") }}
-              </div>
-              <NsToggle
-                :label="$t('settings.DHCP_enable_label')"
-                v-model="DHCPEnableField"
-                value="DHCPEnableField"
-                formItem
-                ref="DHCPEnableField"
+              <cv-combo-box
+                v-model="interfaceField"
+                :title="$t('settings.interface_label')"
+                :label="$t('settings.interface_placeholder')"
+                :invalid-message="error.interfaceField"
+                :auto-filter="true"
+                :auto-highlight="true"
+                :options="availableInterfaces"
+                :disabled="
+                  loading.getConfiguration ||
+                  loading.configureModule ||
+                  loading.getAvailableInterfacesBeforeConfiguration
+                "
+                ref="interfaceField"
               >
-                <template slot="text-left">{{
-                  $t("settings.disabled")
-                }}</template>
-                <template slot="text-right">{{
-                  $t("settings.enabled")
-                }}</template>
-              </NsToggle>
-              <div v-if="DHCPEnableField">
-                <cv-text-input
-                  :label="$t('settings.DHCP_start_label')"
-                  v-model="DHCPStartField"
-                  :disabled="
-                    loading.getConfiguration || loading.configureModule
-                  "
-                  :invalid-message="error.DHCPStartField"
-                  ref="DHCPStartField"
-                ></cv-text-input>
-                <cv-text-input
-                  :label="$t('settings.DHCP_end_label')"
-                  v-model="DHCPEndField"
-                  :disabled="
-                    loading.getConfiguration || loading.configureModule
-                  "
-                  :invalid-message="error.DHCPEndField"
-                  ref="DHCPEndField"
-                ></cv-text-input>
-                <cv-text-input
-                  :label="$t('settings.DHCP_lease_label')"
-                  :helper-text="$t('settings.DHCP_lease_hint')"
-                  v-model="DHCPLeaseField"
-                  :disabled="
-                    loading.getConfiguration || loading.configureModule
-                  "
-                  :invalid-message="error.DHCPLeaseField"
-                  ref="DHCPLeaseField"
+              </cv-combo-box>
+              <NsButton
+                kind="primary"
+                :icon="Save20"
+                :loading="loading.configureModule"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                >{{ $t("settings.save") }}</NsButton
+              >
+            </cv-form>
+          </cv-tile>
+        </cv-column>
+      </cv-row>
+      <div v-if="configuration.interface">
+        <cv-row>
+          <cv-column>
+            <cv-tile light>
+              <cv-form @submit.prevent="configureModule">
+                <h4>DHCP</h4>
+                <div class="title-description mg-bottom-xlg">
+                  {{ $t("settings.DHCP_description") }}
+                </div>
+                <NsToggle
+                  :label="$t('settings.DHCP_enable_label')"
+                  v-model="DHCPEnableField"
+                  value="DHCPEnableField"
+                  formItem
+                  ref="DHCPEnableField"
                 >
-                </cv-text-input>
-              </div>
-              <cv-row v-if="error.configureModule">
-                <cv-column>
-                  <NsInlineNotification
-                    kind="error"
-                    :title="$t('action.configure-module')"
-                    :description="error.configureModule"
-                    :showCloseButton="false"
-                  />
-                </cv-column>
-              </cv-row>
-              <NsButton
-                kind="secondary"
-                :icon="Save20"
-                :loading="loading.configureModule"
-                :disabled="loading.getConfiguration || loading.configureModule"
-                >{{ $t("settings.save") }}</NsButton
-              >
-            </cv-form>
-          </cv-tile>
-        </cv-column>
-      </cv-row>
-      <cv-row>
-        <cv-column>
-          <cv-tile light>
-            <cv-form @submit.prevent="configureModule">
-              <h4>DNS</h4>
-              <div class="title-description mg-bottom-xlg">
-                {{ $t("settings.DNS_description") }}
-              </div>
-              <NsToggle
-                :label="$t('settings.DNS_enable_label')"
-                v-model="DNSEnableField"
-                value="DNSEnableField"
-                formItem
-                ref="DNSEnableField"
-              >
-                <template slot="text-left">{{
-                  $t("settings.disabled")
-                }}</template>
-                <template slot="text-right">{{
-                  $t("settings.enabled")
-                }}</template>
-              </NsToggle>
-              <div v-if="DNSEnableField">
-                <cv-text-input
-                  :label="$t('settings.DNS_primary_label')"
-                  v-model="DNSPrimaryField"
+                  <template slot="text-left">{{
+                    $t("settings.disabled")
+                  }}</template>
+                  <template slot="text-right">{{
+                    $t("settings.enabled")
+                  }}</template>
+                </NsToggle>
+                <div v-if="DHCPEnableField">
+                  <cv-text-input
+                    :label="$t('settings.DHCP_start_label')"
+                    v-model="DHCPStartField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.DHCPStartField"
+                    ref="DHCPStartField"
+                  ></cv-text-input>
+                  <cv-text-input
+                    :label="$t('settings.DHCP_end_label')"
+                    v-model="DHCPEndField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.DHCPEndField"
+                    ref="DHCPEndField"
+                  ></cv-text-input>
+                  <cv-text-input
+                    :label="$t('settings.DHCP_lease_label')"
+                    :helper-text="$t('settings.DHCP_lease_hint')"
+                    v-model="DHCPLeaseField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.DHCPLeaseField"
+                    ref="DHCPLeaseField"
+                  >
+                  </cv-text-input>
+                </div>
+                <NsButton
+                  kind="secondary"
+                  :icon="Save20"
+                  :loading="loading.configureModule"
                   :disabled="
                     loading.getConfiguration || loading.configureModule
                   "
-                  :invalid-message="error.DNSPrimaryField"
-                  ref="DNSPrimaryField"
-                ></cv-text-input>
-                <cv-text-input
-                  :label="$t('settings.DNS_secondary_label')"
-                  v-model="DNSSecondaryField"
+                >
+                  {{ $t("settings.save") }}
+                </NsButton>
+              </cv-form>
+            </cv-tile>
+          </cv-column>
+        </cv-row>
+        <cv-row>
+          <cv-column>
+            <cv-tile light>
+              <cv-form @submit.prevent="configureModule">
+                <h4>DNS</h4>
+                <div class="title-description mg-bottom-xlg">
+                  {{ $t("settings.DNS_description") }}
+                </div>
+                <NsToggle
+                  :label="$t('settings.DNS_enable_label')"
+                  v-model="DNSEnableField"
+                  value="DNSEnableField"
+                  formItem
+                  ref="DNSEnableField"
+                >
+                  <template slot="text-left">{{
+                    $t("settings.disabled")
+                  }}</template>
+                  <template slot="text-right">{{
+                    $t("settings.enabled")
+                  }}</template>
+                </NsToggle>
+                <div v-if="DNSEnableField">
+                  <cv-text-input
+                    :label="$t('settings.DNS_primary_label')"
+                    v-model="DNSPrimaryField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.DNSPrimaryField"
+                    ref="DNSPrimaryField"
+                  ></cv-text-input>
+                  <cv-text-input
+                    :label="$t('settings.DNS_secondary_label')"
+                    v-model="DNSSecondaryField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.DNSSecondaryField"
+                    ref="DNSSecondaryField"
+                  ></cv-text-input>
+                </div>
+                <NsButton
+                  kind="secondary"
+                  :icon="Save20"
+                  :loading="loading.configureModule"
                   :disabled="
                     loading.getConfiguration || loading.configureModule
                   "
-                  :invalid-message="error.DNSSecondaryField"
-                  ref="DNSSecondaryField"
-                ></cv-text-input>
-              </div>
-              <cv-row v-if="error.configureModule">
-                <cv-column>
-                  <NsInlineNotification
-                    kind="error"
-                    :title="$t('action.configure-module')"
-                    :description="error.configureModule"
-                    :showCloseButton="false"
-                  />
-                </cv-column>
-              </cv-row>
-              <NsButton
-                kind="secondary"
-                :icon="Save20"
-                :loading="loading.configureModule"
-                :disabled="loading.getConfiguration || loading.configureModule"
-                >{{ $t("settings.save") }}</NsButton
-              >
-            </cv-form>
-          </cv-tile>
-        </cv-column>
-      </cv-row>
+                  >{{ $t("settings.save") }}</NsButton
+                >
+              </cv-form>
+            </cv-tile>
+          </cv-column>
+        </cv-row>
+      </div>
     </div>
   </cv-grid>
 </template>
@@ -327,11 +328,11 @@ export default {
       this.loading.getAvailableInterfacesBeforeConfiguration = false;
       console.log("available ", taskResult.output.data);
       const interfaces = [];
-      taskResult.output.data.forEach((interf) => {
+      taskResult.output.data.forEach((iface) => {
         interfaces.push({
-          name: interf,
-          label: interf,
-          value: interf,
+          name: iface,
+          label: iface,
+          value: iface,
         });
       });
       this.availableInterfaces = interfaces;

@@ -40,7 +40,7 @@
     "DNS_secondary_label": "Secondary forwarding server",
     "dhcp-server_format": "Format ipv4 required",
     "dns-server_format": "Format ipv4 required",
-    "dns-server_number_one_of": "Must validate one and only one schema"
+    "dns-server_number_one_of": "Must validate one and only one schema, Ipv4 or Ipv6"
   },
   "about": {
     "title": "About"
