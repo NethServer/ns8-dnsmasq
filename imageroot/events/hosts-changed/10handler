@@ -10,21 +10,10 @@ import os
 import sys
 
 import agent
-import network
 
-# check if interface is present inside the configuration
-config = json.load(open("config.json"))
-if 'interface' in config and config['interface'] != '':
-    # interface is set, assuming it's valid, parse data and init variables
-    data = json.load(sys.stdin)
-    agent_source_id = os.getenv("AGENT_EVENT_SOURCE")
-    interfaces = network.list_interfaces()
-    interface = next(interface for interface in interfaces if interface["name"] == config["interface"])
-    ip = interface["addresses"][0]["address"]
-
-    # if event is triggered by traefik and the node_id is the same as the current node, reload hosts
-    if 'traefik' in agent_source_id and os.environ['NODE_ID'] == str(data['node_id']):
-        redis_client = agent.redis_connect()
-        with open(f'dnsmasq_hosts.d/traefik_hosts', 'w') as file:
-            for host in redis_client.smembers(f'{agent_source_id}/hosts'):
-                file.write(f'{ip} {host}\n')
+# parse data and init variables
+data = json.load(sys.stdin)
+agent_source_id = os.getenv("AGENT_EVENT_SOURCE")
+# execute only if traefik is the source of the event and the node_id is the same as the current node
+if 'traefik' in agent_source_id and os.environ['NODE_ID'] == str(data['node_id']):
+    agent.run_helper("../bin/reload_hosts", agent_source_id)
