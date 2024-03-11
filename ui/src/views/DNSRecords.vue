@@ -9,22 +9,12 @@
         <h2>{{ $t("DNSrecords.title") }}</h2>
       </cv-column>
     </cv-row>
-    <cv-row v-if="error.getConfiguration">
+    <cv-row v-if="error.getDNSrecords">
       <cv-column>
         <NsInlineNotification
           kind="error"
-          :title="$t('action.get-configuration')"
-          :description="error.getConfiguration"
-          :showCloseButton="false"
-        />
-      </cv-column>
-    </cv-row>
-    <cv-row v-if="error.configureModule">
-      <cv-column>
-        <NsInlineNotification
-          kind="error"
-          :title="$t('action.configure-module')"
-          :description="error.configureModule"
+          :title="$t('action.get-dns-records')"
+          :description="error.getDNSrecords"
           :showCloseButton="false"
         />
       </cv-column>
@@ -38,7 +28,7 @@
                 <NsButton
                   kind="secondary"
                   :icon="Add20"
-                  @click="showCreateRouteModal"
+                  @click="q.isShowAddDNSRecordsModal = true"
                   >{{ $t("DNSrecords.add_dns_label") }}
                 </NsButton>
               </cv-column>
@@ -46,26 +36,23 @@
             <cv-row>
               <cv-column>
                 <NsDataTable
-                  :allRows="filteredRoutes"
+                  :allRows="dnsrecords"
                   :columns="i18nTableColumns"
                   :rawColumns="tableColumns"
                   :sortable="true"
                   :pageSizes="[10, 25, 50, 100]"
                   :overflow-menu="true"
                   isSearchable
-                  :searchPlaceholder="$t('settings_http_routes.search_route')"
+                  :searchPlaceholder="$t('DNSrecords.search_record')"
                   :searchClearLabel="$t('common.clear_search')"
                   :noSearchResultsLabel="$t('common.no_search_results')"
                   :noSearchResultsDescription="
                     $t('common.no_search_results_description')
                   "
-                  :isLoading="loadingRoutes"
+                  :isLoading="loading.getDNSrecords"
                   :skeletonRows="5"
-                  :isErrorShown="
-                    !!error.listInstalledModules || !!error.listRoutes
-                  "
-                  :errorTitle="currentErrorAction"
-                  :errorDescription="currentErrorDescription"
+                  :isErrorShown="!!error.getDNSrecords"
+                  :errorTitle="error.getDNSrecords"
                   :itemsPerPageLabel="$t('pagination.items_per_page')"
                   :rangeOfTotalItemsLabel="
                     $t('pagination.range_of_total_items')
@@ -77,14 +64,10 @@
                   @updatePage="tablePage = $event"
                 >
                   <template slot="empty-state">
-                    <NsEmptyState
-                      :title="$t('settings_http_routes.no_http_route')"
-                    >
+                    <NsEmptyState :title="$t('DNSrecords.no_records')">
                       <template #description>
                         <div>
-                          {{
-                            $t("settings_http_routes.no_http_route_description")
-                          }}
+                          {{ $t("DNSrecords.no_records_description") }}
                         </div>
                       </template>
                     </NsEmptyState>
@@ -96,49 +79,25 @@
                       :value="`${rowIndex}`"
                     >
                       <cv-data-table-cell>
-                        <cv-link @click="showRouteDetailModal(row)">
-                          {{ row.name }}
-                        </cv-link>
-                      </cv-data-table-cell>
-                      <cv-data-table-cell>
                         <span>
-                          {{ $t(`settings_http_routes.${row.type}`) }}
+                          {{ row.domain }}
                         </span>
                       </cv-data-table-cell>
                       <cv-data-table-cell>
-                        <span>{{ row.node }}</span>
+                        <span>
+                          {{ row.address }}
+                        </span>
                       </cv-data-table-cell>
                       <cv-data-table-cell class="table-overflow-menu-cell">
-                        <cv-overflow-menu
-                          flip-menu
-                          class="table-overflow-menu"
-                          :data-test-id="row.name + '-menu'"
-                        >
-                          <cv-overflow-menu-item
-                            @click="showRouteDetailModal(row)"
-                            :data-test-id="row.name + '-details'"
-                          >
-                            <NsMenuItem
-                              :icon="ArrowRight20"
-                              :label="$t('common.see_details')"
-                            />
-                          </cv-overflow-menu-item>
-                          <cv-overflow-menu-item
-                            @click="showEditRouteModal(row)"
-                            :disabled="!row.user_created"
-                            :data-test-id="row.name + '-edit'"
-                          >
+                        <cv-overflow-menu flip-menu class="table-overflow-menu">
+                          <cv-overflow-menu-item>
                             <NsMenuItem
                               :icon="Edit20"
                               :label="$t('common.edit')"
                             />
                           </cv-overflow-menu-item>
-                          <cv-overflow-menu-item
-                            danger
-                            @click="showDeleteRouteModal(row)"
-                            :disabled="!row.user_created"
-                            :data-test-id="row.name + '-delete'"
-                          >
+                          <NsMenuDivider />
+                          <cv-overflow-menu-item danger>
                             <NsMenuItem
                               :icon="TrashCan20"
                               :label="$t('common.delete')"
@@ -155,6 +114,44 @@
         </cv-tile>
       </cv-column>
     </cv-row>
+    <NsModal
+      size="default"
+      :visible="q.isShowAddDNSRecordsModal"
+      @modal-hidden="q.isShowAddDNSRecordsModal = false"
+      @primary-click="setDNSrecords"
+      :primary-button-disabled="loading.setDNSrecords"
+    >
+      <template slot="title">{{ $t("DNSrecords.add_dns_label") }}</template>
+      <template slot="content">
+        <cv-form @submit.prevent="setDNSrecords">
+          <cv-text-input
+            :label="$t('DNSrecords.domain')"
+            v-model="domain"
+            :invalid-message="$t(error.domain)"
+            ref="name"
+          >
+          </cv-text-input>
+          <cv-text-input
+            :label="$t('DNSrecords.address')"
+            v-model="address"
+            :invalid-message="$t(error.address)"
+            ref="url"
+          >
+          </cv-text-input>
+        </cv-form>
+        <NsInlineNotification
+          v-if="error.setDNSrecords"
+          kind="error"
+          :title="$t('action.set-dns-records')"
+          :description="error.setDNSrecords"
+          :showCloseButton="false"
+        />
+      </template>
+      <template slot="secondary-button">{{ $t("common.close") }}</template>
+      <template slot="primary-button">{{
+        $t("DNSrecords.add_dns_label")
+      }}</template>
+    </NsModal>
   </cv-grid>
 </template>
 
@@ -185,31 +182,32 @@ export default {
     return {
       q: {
         page: "dnsrecords",
+        isShowAddDNSRecordsModal: false,
       },
       urlCheckInterval: null,
-      dnsrecord: [],
+      dnsrecords: [],
+      tableColumns: ["domain", "address"],
+      domain: "",
+      address: "",
       loading: {
-        getConfiguration: false,
-        configureModule: false,
-        getAvailableInterfacesBeforeConfiguration: false,
+        getDNSrecords: false,
+        setDNSrecords: false,
       },
       error: {
-        getConfiguration: "",
-        configureModule: "",
-        getAvailableInterfacesBeforeConfiguration: "",
-        interfaceField: "",
-        DHCPEnableField: "",
-        DHCPStartField: "",
-        DHCPEndField: "",
-        DHCPLeaseField: "",
-        DNSEnableField: "",
-        DNSPrimaryField: "",
-        DNSSecondaryField: "",
+        getDNSrecords: "",
+        setDNSrecords: "",
+        domain: "",
+        address: "",
       },
     };
   },
   computed: {
     ...mapState(["instanceName", "core", "appName"]),
+    i18nTableColumns() {
+      return this.tableColumns.map((column) => {
+        return this.$t("DNSrecords." + column);
+      });
+    },
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -222,25 +220,25 @@ export default {
     next();
   },
   created() {
-    this.getAvailableInterfacesBeforeConfiguration();
+    this.getDNSrecords();
   },
   methods: {
-    async getAvailableInterfacesBeforeConfiguration() {
-      this.loading.getAvailableInterfacesBeforeConfiguration = true;
-      this.error.getAvailableInterfacesBeforeConfiguration = "";
-      const taskAction = "get-available-interfaces";
+    async getDNSrecords() {
+      this.loading.getDNSrecords = true;
+      this.error.getDNSrecords = "";
+      const taskAction = "get-dns-records";
       const eventId = this.getUuid();
 
       // register to task error
       this.core.$root.$once(
         `${taskAction}-aborted-${eventId}`,
-        this.getAvailableInterfacesAborted
+        this.getDNSrecordsAborted
       );
 
       // register to task completion
       this.core.$root.$once(
         `${taskAction}-completed-${eventId}`,
-        this.getAvailableInterfacesCompleted
+        this.getDNSrecordsCompleted
       );
 
       const res = await to(
@@ -257,222 +255,97 @@ export default {
 
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
-        this.error.getAvailableInterfacesBeforeConfiguration =
-          this.getErrorMessage(err);
-        this.loading.getAvailableInterfacesBeforeConfiguration = false;
+        this.error.getDNSrecords = this.getErrorMessage(err);
+        this.loading.getDNSrecords = false;
         return;
       }
     },
-    getAvailableInterfacesAborted(taskResult, taskContext) {
+    getDNSrecordsAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
-      this.error.getAvailableInterfacesBeforeConfiguration = this.$t(
-        "error.generic_error"
-      );
-      this.loading.getAvailableInterfacesBeforeConfiguration = false;
+      this.error.getDNSrecords = this.$t("error.generic_error");
+      this.loading.getDNSrecords = false;
     },
-    getAvailableInterfacesCompleted(taskContext, taskResult) {
-      this.loading.getAvailableInterfacesBeforeConfiguration = false;
-      console.log("available ", taskResult.output.data);
-      const interfaces = [];
-      taskResult.output.data.forEach((iface) => {
-        interfaces.push({
-          name: iface,
-          label: iface,
-          value: iface,
-        });
-      });
-      this.availableInterfaces = interfaces;
-      this.getConfiguration();
+    getDNSrecordsCompleted(taskContext, taskResult) {
+      this.loading.getDNSrecords = false;
+      this.dnsrecords = taskResult.output.records;
+      console.log("available ", taskResult.output.records);
     },
-    async getConfiguration() {
-      this.loading.getConfiguration = true;
-      this.error.getConfiguration = "";
-      const taskAction = "get-configuration";
-      const eventId = this.getUuid();
-
-      // register to task error
-      this.core.$root.$once(
-        `${taskAction}-aborted-${eventId}`,
-        this.getConfigurationAborted
-      );
-
-      // register to task completion
-      this.core.$root.$once(
-        `${taskAction}-completed-${eventId}`,
-        this.getConfigurationCompleted
-      );
-
-      const res = await to(
-        this.createModuleTaskForApp(this.instanceName, {
-          action: taskAction,
-          extra: {
-            title: this.$t("action." + taskAction),
-            isNotificationHidden: true,
-            eventId,
-          },
-        })
-      );
-      const err = res[0];
-
-      if (err) {
-        console.error(`error creating task ${taskAction}`, err);
-        this.error.getConfiguration = this.getErrorMessage(err);
-        this.loading.getConfiguration = false;
-        return;
-      }
-    },
-    getConfigurationAborted(taskResult, taskContext) {
-      console.error(`${taskContext.action} aborted`, taskResult);
-      this.error.getConfiguration = this.$t("error.generic_error");
-      this.loading.getConfiguration = false;
-    },
-    getConfigurationCompleted(taskContext, taskResult) {
-      this.loading.getConfiguration = false;
-      const config = taskResult.output;
-      this.configuration = config;
-
-      const dhcp_server = config["dhcp-server"];
-      const dns_server = config["dns-server"];
-
-      this.interfaceField = config["interface"];
-      this.DHCPEnableField = dhcp_server["enabled"];
-      this.DHCPStartField = dhcp_server["start"];
-      this.DHCPEndField = dhcp_server["end"];
-      this.DHCPLeaseField = dhcp_server["lease"].toString();
-      this.DNSEnableField = dns_server["enabled"];
-      this.DNSPrimaryField = dns_server["primary-server"];
-      this.DNSSecondaryField = dns_server["secondary-server"];
-    },
-    validateConfigureModule() {
+    validateDNSrecords() {
       this.clearErrors(this);
       let isValidationOk = true;
 
-      if (!this.interfaceField) {
+      if (!this.domain) {
         // test field cannot be empty
-        this.error.interfaceField = this.$t("common.required");
+        this.error.domain = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("interfaceField");
+          this.focusElement("domain");
           isValidationOk = false;
         }
       }
-      if (this.DHCPEnableField) {
-        if (!this.DHCPStartField) {
-          // test field cannot be empty
-          this.error.DHCPStartField = this.$t("common.required");
-
-          if (isValidationOk) {
-            this.focusElement("DHCPStartField");
-            isValidationOk = false;
-          }
-        }
-        if (!this.DHCPEndField) {
-          // test field cannot be empty
-          this.error.DHCPEndField = this.$t("common.required");
-
-          if (isValidationOk) {
-            this.focusElement("DHCPEndField");
-            isValidationOk = false;
-          }
-        }
-        if (!this.DHCPLeaseField) {
-          // test field cannot be empty
-          this.error.DHCPLeaseField = this.$t("common.required");
-
-          if (isValidationOk) {
-            this.focusElement("DHCPLeaseField");
-            isValidationOk = false;
-          }
-        }
-      }
-      if (this.DNSEnableField && !this.DNSPrimaryField) {
+      if (!this.address) {
         // test field cannot be empty
-        this.error.DNSPrimaryField = this.$t("common.required");
+        this.error.address = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("DNSPrimaryField");
+          this.focusElement("address");
           isValidationOk = false;
         }
       }
 
       return isValidationOk;
     },
-    configureModuleValidationFailed(validationErrors) {
-      this.loading.configureModule = false;
-      console.log(validationErrors);
+    setDNSvalidationFailed(validationErrors) {
+      this.loading.setDNSrecords = false;
 
       for (const validationError of validationErrors) {
-        if (validationError.field === "dhcp-server.start") {
-          this.error.DHCPStartField = this.$t(
-            "settings." + validationError.error
-          );
+        if (validationError.field === "domain") {
+          this.error.domain = this.$t("settings." + validationError.error);
         }
-        if (validationError.field === "dhcp-server.end") {
-          this.error.DHCPEndField = this.$t(
-            "settings." + validationError.error
-          );
-        }
-        if (validationError.field === "dhcp-server.lease") {
-          this.error.DHCPLeaseField = this.$t(
-            "settings." + validationError.error
-          );
-        }
-        if (validationError.field === "dns-server.primary-server") {
-          this.error.DNSPrimaryField = this.$t(
-            "settings." + validationError.error
-          );
-        }
-        if (validationError.field === "dns-server.secondary-server") {
-          this.error.DNSSecondaryField = this.$t(
-            "settings." + validationError.error
-          );
+        if (validationError.field === "address") {
+          this.error.address = this.$t("settings." + validationError.error);
         }
       }
     },
-    async configureModule() {
-      const isValidationOk = this.validateConfigureModule();
+    async setDNSrecords() {
+      const isValidationOk = this.validateDNSrecords();
       if (!isValidationOk) {
         return;
       }
 
-      this.loading.configureModule = true;
-      const taskAction = "configure-module";
+      this.loading.setDNSrecords = true;
+      const taskAction = "set-dns-records";
       const eventId = this.getUuid();
 
       // register to task error
       this.core.$root.$once(
         `${taskAction}-aborted-${eventId}`,
-        this.configureModuleAborted
+        this.setDNSrecordsAborted
       );
 
       // register to task validation
       this.core.$root.$once(
         `${taskAction}-validation-failed-${eventId}`,
-        this.configureModuleValidationFailed
+        this.setDNSvalidationFailed
       );
 
       // register to task completion
       this.core.$root.$once(
         `${taskAction}-completed-${eventId}`,
-        this.configureModuleCompleted
+        this.setDNSrecordsCompleted
       );
 
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
           data: {
-            interface: this.interfaceField,
-            "dhcp-server": {
-              enabled: this.DHCPEnableField,
-              start: this.DHCPStartField,
-              end: this.DHCPEndField,
-              lease: parseInt(this.DHCPLeaseField),
-            },
-            "dns-server": {
-              enabled: this.DNSEnableField,
-              "primary-server": this.DNSPrimaryField,
-              "secondary-server": this.DNSSecondaryField,
-            },
+            records: [
+              ...this.dnsrecords,
+              {
+                domain: this.domain,
+                address: this.address,
+              },
+            ],
           },
           extra: {
             title: this.$t("settings.configure_instance", {
@@ -492,16 +365,19 @@ export default {
         return;
       }
     },
-    configureModuleAborted(taskResult, taskContext) {
+    setDNSrecordsAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
       this.error.configureModule = this.$t("error.generic_error");
       this.loading.configureModule = false;
     },
-    configureModuleCompleted() {
+    setDNSrecordsCompleted() {
       this.loading.configureModule = false;
 
       // reload configuration
-      this.getConfiguration();
+      this.q.isShowAddDNSRecordsModal = false;
+      this.domain = "";
+      this.address = "";
+      this.getDNSrecords();
     },
   },
 };

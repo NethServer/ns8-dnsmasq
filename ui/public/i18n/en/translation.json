@@ -3,7 +3,13 @@
     "required": "Required",
     "work_in_progress": "Work in progress",
     "processing": "Processing...",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "clear_search": "Clear Search",
+    "no_search_results": "No results",
+    "no_search_results_description": "Try changing your search query"
   },
   "status": {
     "title": "Status",
@@ -29,10 +35,23 @@
   },
   "DNSrecords": {
     "title": "DNS records",
-    "add_dns_label": "Add DNS record"
+    "add_dns_label": "Add DNS record",
+    "domain": "Hostname",
+    "address": "IP address",
+    "search_record": "Search record",
+    "no_records": "No DNS records",
+    "no_records_description": "There is no DNS record"
   },
   "about": {
     "title": "About"
+  },
+  "pagination": {
+    "items_per_page": "Items per page:",
+    "range_of_total_items": "{range} of {total} items",
+    "of_total_pages": "of {total} pages",
+    "previous_page": "Previous page",
+    "next_page": "Next page",
+    "page_number": "Page number"
   },
   "task": {
     "cannot_create_task": "Cannot create task {action}"
@@ -45,7 +64,9 @@
     "get-name": "Get name",
     "list-backup-repositories": "List backup repositories",
     "list-backups": "List backups",
-    "list-installed-modules": "List installed modules"
+    "list-installed-modules": "List installed modules",
+    "get-dns-records": "Get DNS records",
+    "set-dns-records": "Set DNS records"
   },
   "error": {
     "error": "Error",
