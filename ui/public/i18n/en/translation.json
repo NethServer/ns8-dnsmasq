@@ -35,7 +35,8 @@
   },
   "DNSrecords": {
     "title": "DNS records",
-    "add_dns_label": "Add DNS record",
+    "add_dns_record": "Add DNS record",
+    "delete_dns_record": "Delete DNS record",
     "domain": "Hostname",
     "address": "IP address",
     "search_record": "Search record",
@@ -78,6 +79,7 @@
     "403": "Operation not authorized",
     "404": "Resource not found",
     "cannot_retrieve_module_info": "Cannot retrieve module info",
-    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules"
+    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+    "records_format": "Invalid Format"
   }
 }

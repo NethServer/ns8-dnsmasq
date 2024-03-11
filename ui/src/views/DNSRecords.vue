@@ -29,14 +29,14 @@
                   kind="secondary"
                   :icon="Add20"
                   @click="q.isShowAddDNSRecordsModal = true"
-                  >{{ $t("DNSrecords.add_dns_label") }}
+                  >{{ $t("DNSrecords.add_dns_record") }}
                 </NsButton>
               </cv-column>
             </cv-row>
             <cv-row>
               <cv-column>
                 <NsDataTable
-                  :allRows="dnsrecords"
+                  :allRows="DNSRecords"
                   :columns="i18nTableColumns"
                   :rawColumns="tableColumns"
                   :sortable="true"
@@ -90,14 +90,10 @@
                       </cv-data-table-cell>
                       <cv-data-table-cell class="table-overflow-menu-cell">
                         <cv-overflow-menu flip-menu class="table-overflow-menu">
-                          <cv-overflow-menu-item>
-                            <NsMenuItem
-                              :icon="Edit20"
-                              :label="$t('common.edit')"
-                            />
-                          </cv-overflow-menu-item>
-                          <NsMenuDivider />
-                          <cv-overflow-menu-item danger>
+                          <cv-overflow-menu-item
+                            danger
+                            @click="setDNSrecords(row)"
+                          >
                             <NsMenuItem
                               :icon="TrashCan20"
                               :label="$t('common.delete')"
@@ -121,7 +117,7 @@
       @primary-click="setDNSrecords"
       :primary-button-disabled="loading.setDNSrecords"
     >
-      <template slot="title">{{ $t("DNSrecords.add_dns_label") }}</template>
+      <template slot="title">{{ $t("DNSrecords.add_dns_record") }}</template>
       <template slot="content">
         <cv-form @submit.prevent="setDNSrecords">
           <cv-text-input
@@ -149,7 +145,7 @@
       </template>
       <template slot="secondary-button">{{ $t("common.close") }}</template>
       <template slot="primary-button">{{
-        $t("DNSrecords.add_dns_label")
+        $t("DNSrecords.add_dns_record")
       }}</template>
     </NsModal>
   </cv-grid>
@@ -167,7 +163,7 @@ import {
 } from "@nethserver/ns8-ui-lib";
 
 export default {
-  name: "DNS Records",
+  name: "DNSRecords",
   mixins: [
     TaskService,
     IconService,
@@ -185,7 +181,8 @@ export default {
         isShowAddDNSRecordsModal: false,
       },
       urlCheckInterval: null,
-      dnsrecords: [],
+      DNSRecords: [],
+      tablePage: [],
       tableColumns: ["domain", "address"],
       domain: "",
       address: "",
@@ -267,8 +264,7 @@ export default {
     },
     getDNSrecordsCompleted(taskContext, taskResult) {
       this.loading.getDNSrecords = false;
-      this.dnsrecords = taskResult.output.records;
-      console.log("available ", taskResult.output.records);
+      this.DNSRecords = taskResult.output.records;
     },
     validateDNSrecords() {
       this.clearErrors(this);
@@ -279,7 +275,6 @@ export default {
         this.error.domain = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("domain");
           isValidationOk = false;
         }
       }
@@ -288,7 +283,6 @@ export default {
         this.error.address = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("address");
           isValidationOk = false;
         }
       }
@@ -299,17 +293,12 @@ export default {
       this.loading.setDNSrecords = false;
 
       for (const validationError of validationErrors) {
-        if (validationError.field === "domain") {
-          this.error.domain = this.$t("settings." + validationError.error);
-        }
-        if (validationError.field === "address") {
-          this.error.address = this.$t("settings." + validationError.error);
-        }
+        this.error.address = this.$t("error." + validationError.error);
       }
     },
-    async setDNSrecords() {
+    async setDNSrecords(recordToDelete) {
       const isValidationOk = this.validateDNSrecords();
-      if (!isValidationOk) {
+      if (!isValidationOk && !recordToDelete) {
         return;
       }
 
@@ -335,22 +324,32 @@ export default {
         this.setDNSrecordsCompleted
       );
 
+      const records = recordToDelete
+        ? this.DNSRecords.filter(
+            (record) =>
+              record.domain !== recordToDelete.domain ||
+              record.address !== recordToDelete.address
+          )
+        : [
+            ...this.DNSRecords,
+            {
+              domain: this.domain,
+              address: this.address,
+            },
+          ];
+
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
           data: {
-            records: [
-              ...this.dnsrecords,
-              {
-                domain: this.domain,
-                address: this.address,
-              },
-            ],
+            records: records,
           },
           extra: {
-            title: this.$t("settings.configure_instance", {
-              instance: this.instanceName,
-            }),
+            title: this.$t(
+              recordToDelete
+                ? "DNSrecords.delete_dns_record"
+                : "DNSrecords.add_dns_record"
+            ),
             description: this.$t("common.processing"),
             eventId,
           },
@@ -360,23 +359,24 @@ export default {
 
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
-        this.error.configureModule = this.getErrorMessage(err);
-        this.loading.configureModule = false;
+        this.error.setDNSrecords = this.getErrorMessage(err);
+        this.loading.setDNSrecords = false;
         return;
       }
     },
     setDNSrecordsAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
-      this.error.configureModule = this.$t("error.generic_error");
-      this.loading.configureModule = false;
+      this.error.setDNSrecords = this.$t("error.generic_error");
+      this.loading.setDNSrecords = false;
     },
     setDNSrecordsCompleted() {
-      this.loading.configureModule = false;
+      this.loading.setDNSrecords = false;
 
       // reload configuration
       this.q.isShowAddDNSRecordsModal = false;
       this.domain = "";
       this.address = "";
+      this.clearErrors(this);
       this.getDNSrecords();
     },
   },
