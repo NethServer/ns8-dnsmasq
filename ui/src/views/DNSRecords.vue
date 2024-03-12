@@ -291,9 +291,15 @@ export default {
     },
     setDNSvalidationFailed(validationErrors) {
       this.loading.setDNSrecords = false;
+      console.log("errors", validationErrors);
 
       for (const validationError of validationErrors) {
-        this.error.address = this.$t("error." + validationError.error);
+        if (validationError.field.split(".")[2] === "address") {
+          this.error.address = this.$t("error." + validationError.error);
+        }
+        if (validationError.field.split(".")[2] === "domain") {
+          this.error.domain = this.$t("error." + validationError.error);
+        }
       }
     },
     // This function can be used for create a record or delete a record
