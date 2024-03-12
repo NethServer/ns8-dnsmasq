@@ -7,7 +7,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "close": "Close",
-    "clear_search": "Clear Search",
+    "clear_search": "Clear search",
     "no_search_results": "No results",
     "no_search_results_description": "Try changing your search query"
   },
@@ -33,7 +33,7 @@
     "save": "Save",
     "test_field": "Test field"
   },
-  "DNSrecords": {
+  "dns_records": {
     "title": "DNS records",
     "add_dns_record": "Add DNS record",
     "delete_dns_record": "Delete DNS record",
@@ -80,6 +80,6 @@
     "404": "Resource not found",
     "cannot_retrieve_module_info": "Cannot retrieve module info",
     "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
-    "records_format": "Invalid Format"
+    "records_format": "Invalid format"
   }
 }

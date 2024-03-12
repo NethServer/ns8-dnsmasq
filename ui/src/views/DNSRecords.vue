@@ -6,7 +6,7 @@
   <cv-grid fullWidth>
     <cv-row>
       <cv-column class="page-title">
-        <h2>{{ $t("DNSrecords.title") }}</h2>
+        <h2>{{ $t("dns_records.title") }}</h2>
       </cv-column>
     </cv-row>
     <cv-row v-if="error.getDNSrecords">
@@ -29,7 +29,7 @@
                   kind="secondary"
                   :icon="Add20"
                   @click="q.isShowAddDNSRecordsModal = true"
-                  >{{ $t("DNSrecords.add_dns_record") }}
+                  >{{ $t("dns_records.add_dns_record") }}
                 </NsButton>
               </cv-column>
             </cv-row>
@@ -43,7 +43,7 @@
                   :pageSizes="[10, 25, 50, 100]"
                   :overflow-menu="true"
                   isSearchable
-                  :searchPlaceholder="$t('DNSrecords.search_record')"
+                  :searchPlaceholder="$t('dns_records.search_record')"
                   :searchClearLabel="$t('common.clear_search')"
                   :noSearchResultsLabel="$t('common.no_search_results')"
                   :noSearchResultsDescription="
@@ -64,10 +64,10 @@
                   @updatePage="tablePage = $event"
                 >
                   <template slot="empty-state">
-                    <NsEmptyState :title="$t('DNSrecords.no_records')">
+                    <NsEmptyState :title="$t('dns_records.no_records')">
                       <template #description>
                         <div>
-                          {{ $t("DNSrecords.no_records_description") }}
+                          {{ $t("dns_records.no_records_description") }}
                         </div>
                       </template>
                     </NsEmptyState>
@@ -117,18 +117,18 @@
       @primary-click="setDNSrecords"
       :primary-button-disabled="loading.setDNSrecords"
     >
-      <template slot="title">{{ $t("DNSrecords.add_dns_record") }}</template>
+      <template slot="title">{{ $t("dns_records.add_dns_record") }}</template>
       <template slot="content">
         <cv-form @submit.prevent="setDNSrecords">
           <cv-text-input
-            :label="$t('DNSrecords.domain')"
+            :label="$t('dns_records.domain')"
             v-model="domain"
             :invalid-message="$t(error.domain)"
             ref="name"
           >
           </cv-text-input>
           <cv-text-input
-            :label="$t('DNSrecords.address')"
+            :label="$t('dns_records.address')"
             v-model="address"
             :invalid-message="$t(error.address)"
             ref="url"
@@ -145,7 +145,7 @@
       </template>
       <template slot="secondary-button">{{ $t("common.close") }}</template>
       <template slot="primary-button">{{
-        $t("DNSrecords.add_dns_record")
+        $t("dns_records.add_dns_record")
       }}</template>
     </NsModal>
   </cv-grid>
@@ -172,7 +172,7 @@ export default {
     PageTitleService,
   ],
   pageTitle() {
-    return this.$t("DNSrecords.title") + " - " + this.appName;
+    return this.$t("dns_records.title") + " - " + this.appName;
   },
   data() {
     return {
@@ -202,7 +202,7 @@ export default {
     ...mapState(["instanceName", "core", "appName"]),
     i18nTableColumns() {
       return this.tableColumns.map((column) => {
-        return this.$t("DNSrecords." + column);
+        return this.$t("dns_records." + column);
       });
     },
   },
@@ -271,7 +271,7 @@ export default {
       let isValidationOk = true;
 
       if (!this.domain) {
-        // test field cannot be empty
+        // domain cannot be empty
         this.error.domain = this.$t("common.required");
 
         if (isValidationOk) {
@@ -279,7 +279,7 @@ export default {
         }
       }
       if (!this.address) {
-        // test field cannot be empty
+        // address cannot be empty
         this.error.address = this.$t("common.required");
 
         if (isValidationOk) {
@@ -296,6 +296,9 @@ export default {
         this.error.address = this.$t("error." + validationError.error);
       }
     },
+    // This function can be used for create a record or delete a record
+    // If you call it without the param, you add the record
+    // Else, you delete the record that you pass to it
     async setDNSrecords(recordToDelete) {
       const isValidationOk = this.validateDNSrecords();
       if (!isValidationOk && !recordToDelete) {
@@ -347,8 +350,8 @@ export default {
           extra: {
             title: this.$t(
               recordToDelete
-                ? "DNSrecords.delete_dns_record"
-                : "DNSrecords.add_dns_record"
+                ? "dns_records.delete_dns_record"
+                : "dns_records.add_dns_record"
             ),
             description: this.$t("common.processing"),
             eventId,
