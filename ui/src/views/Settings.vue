@@ -43,40 +43,42 @@
         </cv-tile>
       </cv-column>
     </cv-row>
-    <div v-else>
-      <cv-row>
-        <cv-column>
-          <cv-tile light>
-            <cv-form @submit.prevent="configureModule">
-              <cv-combo-box
-                v-model="interfaceField"
-                :title="$t('settings.interface_label')"
-                :label="$t('settings.interface_placeholder')"
-                :invalid-message="error.interfaceField"
-                :auto-filter="true"
-                :auto-highlight="true"
-                :options="availableInterfaces"
-                :disabled="
-                  loading.getConfiguration ||
-                  loading.configureModule ||
-                  loading.getAvailableInterfacesBeforeConfiguration
-                "
-                ref="interfaceField"
-              >
-              </cv-combo-box>
-              <NsButton
-                kind="primary"
-                :icon="Save20"
-                :loading="loading.configureModule"
-                :disabled="loading.getConfiguration || loading.configureModule"
-                >{{ $t("settings.save") }}</NsButton
-              >
-            </cv-form>
-          </cv-tile>
-        </cv-column>
-      </cv-row>
-      <div v-if="configuration.interface">
+    <cv-row v-else>
+      <cv-column>
         <cv-row>
+          <cv-column>
+            <cv-tile light>
+              <cv-form @submit.prevent="configureModule">
+                <cv-combo-box
+                  v-model="interfaceField"
+                  :title="$t('settings.interface_label')"
+                  :label="$t('settings.interface_placeholder')"
+                  :invalid-message="error.interfaceField"
+                  :auto-filter="true"
+                  :auto-highlight="true"
+                  :options="availableInterfaces"
+                  :disabled="
+                    loading.getConfiguration ||
+                    loading.configureModule ||
+                    loading.getAvailableInterfacesBeforeConfiguration
+                  "
+                  ref="interfaceField"
+                >
+                </cv-combo-box>
+                <NsButton
+                  kind="primary"
+                  :icon="Save20"
+                  :loading="loading.configureModule"
+                  :disabled="
+                    loading.getConfiguration || loading.configureModule
+                  "
+                  >{{ $t("settings.save") }}</NsButton
+                >
+              </cv-form>
+            </cv-tile>
+          </cv-column>
+        </cv-row>
+        <cv-row v-if="configuration.interface">
           <cv-column>
             <cv-tile light>
               <cv-form @submit.prevent="configureModule">
@@ -86,10 +88,10 @@
                 </div>
                 <NsToggle
                   :label="$t('settings.DHCP_enable_label')"
-                  v-model="DHCPEnableField"
-                  value="DHCPEnableField"
+                  v-model="dhcpEnableField"
+                  value="dhcpEnableField"
                   formItem
-                  ref="DHCPEnableField"
+                  ref="dhcpEnableField"
                 >
                   <template slot="text-left">{{
                     $t("settings.disabled")
@@ -98,34 +100,34 @@
                     $t("settings.enabled")
                   }}</template>
                 </NsToggle>
-                <div v-if="DHCPEnableField">
+                <div v-if="dhcpEnableField">
                   <cv-text-input
                     :label="$t('settings.DHCP_start_label')"
-                    v-model="DHCPStartField"
+                    v-model="dhcpStartField"
                     :disabled="
                       loading.getConfiguration || loading.configureModule
                     "
-                    :invalid-message="error.DHCPStartField"
-                    ref="DHCPStartField"
+                    :invalid-message="error.dhcpStartField"
+                    ref="dhcpStartField"
                   ></cv-text-input>
                   <cv-text-input
                     :label="$t('settings.DHCP_end_label')"
-                    v-model="DHCPEndField"
+                    v-model="dhcpEndField"
                     :disabled="
                       loading.getConfiguration || loading.configureModule
                     "
-                    :invalid-message="error.DHCPEndField"
-                    ref="DHCPEndField"
+                    :invalid-message="error.dhcpEndField"
+                    ref="dhcpEndField"
                   ></cv-text-input>
                   <cv-text-input
                     :label="$t('settings.DHCP_lease_label')"
                     :helper-text="$t('settings.DHCP_lease_hint')"
-                    v-model="DHCPLeaseField"
+                    v-model="dhcpLeaseField"
                     :disabled="
                       loading.getConfiguration || loading.configureModule
                     "
-                    :invalid-message="error.DHCPLeaseField"
-                    ref="DHCPLeaseField"
+                    :invalid-message="error.dhcpLeaseField"
+                    ref="dhcpLeaseField"
                   >
                   </cv-text-input>
                 </div>
@@ -143,7 +145,7 @@
             </cv-tile>
           </cv-column>
         </cv-row>
-        <cv-row>
+        <cv-row v-if="configuration.interface">
           <cv-column>
             <cv-tile light>
               <cv-form @submit.prevent="configureModule">
@@ -153,10 +155,10 @@
                 </div>
                 <NsToggle
                   :label="$t('settings.DNS_enable_label')"
-                  v-model="DNSEnableField"
-                  value="DNSEnableField"
+                  v-model="dnsEnableField"
+                  value="dnsEnableField"
                   formItem
-                  ref="DNSEnableField"
+                  ref="dnsEnableField"
                 >
                   <template slot="text-left">{{
                     $t("settings.disabled")
@@ -165,24 +167,24 @@
                     $t("settings.enabled")
                   }}</template>
                 </NsToggle>
-                <div v-if="DNSEnableField">
+                <div v-if="dnsEnableField">
                   <cv-text-input
                     :label="$t('settings.DNS_primary_label')"
-                    v-model="DNSPrimaryField"
+                    v-model="dnsPrimaryField"
                     :disabled="
                       loading.getConfiguration || loading.configureModule
                     "
-                    :invalid-message="error.DNSPrimaryField"
-                    ref="DNSPrimaryField"
+                    :invalid-message="error.dnsPrimaryField"
+                    ref="dnsPrimaryField"
                   ></cv-text-input>
                   <cv-text-input
                     :label="$t('settings.DNS_secondary_label')"
-                    v-model="DNSSecondaryField"
+                    v-model="dnsSecondaryField"
                     :disabled="
                       loading.getConfiguration || loading.configureModule
                     "
-                    :invalid-message="error.DNSSecondaryField"
-                    ref="DNSSecondaryField"
+                    :invalid-message="error.dnsSecondaryField"
+                    ref="dnsSecondaryField"
                   ></cv-text-input>
                 </div>
                 <NsButton
@@ -198,8 +200,8 @@
             </cv-tile>
           </cv-column>
         </cv-row>
-      </div>
-    </div>
+      </cv-column>
+    </cv-row>
   </cv-grid>
 </template>
 
@@ -235,13 +237,13 @@ export default {
       configuration: {},
       availableInterfaces: [],
       interfaceField: "",
-      DHCPEnableField: false,
-      DHCPStartField: "",
-      DHCPEndField: "",
-      DHCPLeaseField: 12,
-      DNSEnableField: false,
-      DNSPrimaryField: "",
-      DNSSecondaryField: "",
+      dhcpEnableField: false,
+      dhcpStartField: "",
+      dhcpEndField: "",
+      dhcpLeaseField: 12,
+      dnsEnableField: false,
+      dnsPrimaryField: "",
+      dnsSecondaryField: "",
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -252,13 +254,13 @@ export default {
         configureModule: "",
         getAvailableInterfacesBeforeConfiguration: "",
         interfaceField: "",
-        DHCPEnableField: "",
-        DHCPStartField: "",
-        DHCPEndField: "",
-        DHCPLeaseField: "",
-        DNSEnableField: "",
-        DNSPrimaryField: "",
-        DNSSecondaryField: "",
+        dhcpEnableField: "",
+        dhcpStartField: "",
+        dhcpEndField: "",
+        dhcpLeaseField: "",
+        dnsEnableField: "",
+        dnsPrimaryField: "",
+        dnsSecondaryField: "",
       },
     };
   },
@@ -326,7 +328,6 @@ export default {
     },
     getAvailableInterfacesCompleted(taskContext, taskResult) {
       this.loading.getAvailableInterfacesBeforeConfiguration = false;
-      console.log("available ", taskResult.output.data);
       const interfaces = [];
       taskResult.output.data.forEach((iface) => {
         interfaces.push({
@@ -389,20 +390,19 @@ export default {
       const dns_server = config["dns-server"];
 
       this.interfaceField = config["interface"];
-      this.DHCPEnableField = dhcp_server["enabled"];
-      this.DHCPStartField = dhcp_server["start"];
-      this.DHCPEndField = dhcp_server["end"];
-      this.DHCPLeaseField = dhcp_server["lease"].toString();
-      this.DNSEnableField = dns_server["enabled"];
-      this.DNSPrimaryField = dns_server["primary-server"];
-      this.DNSSecondaryField = dns_server["secondary-server"];
+      this.dhcpEnableField = dhcp_server["enabled"];
+      this.dhcpStartField = dhcp_server["start"];
+      this.dhcpEndField = dhcp_server["end"];
+      this.dhcpLeaseField = dhcp_server["lease"].toString();
+      this.dnsEnableField = dns_server["enabled"];
+      this.dnsPrimaryField = dns_server["primary-server"];
+      this.dnsSecondaryField = dns_server["secondary-server"];
     },
     validateConfigureModule() {
       this.clearErrors(this);
       let isValidationOk = true;
 
       if (!this.interfaceField) {
-        // test field cannot be empty
         this.error.interfaceField = this.$t("common.required");
 
         if (isValidationOk) {
@@ -410,41 +410,37 @@ export default {
           isValidationOk = false;
         }
       }
-      if (this.DHCPEnableField) {
-        if (!this.DHCPStartField) {
-          // test field cannot be empty
-          this.error.DHCPStartField = this.$t("common.required");
+      if (this.dhcpEnableField) {
+        if (!this.dhcpStartField) {
+          this.error.dhcpStartField = this.$t("common.required");
 
           if (isValidationOk) {
-            this.focusElement("DHCPStartField");
+            this.focusElement("dhcpStartField");
             isValidationOk = false;
           }
         }
-        if (!this.DHCPEndField) {
-          // test field cannot be empty
-          this.error.DHCPEndField = this.$t("common.required");
+        if (!this.dhcpEndField) {
+          this.error.dhcpEndField = this.$t("common.required");
 
           if (isValidationOk) {
-            this.focusElement("DHCPEndField");
+            this.focusElement("dhcpEndField");
             isValidationOk = false;
           }
         }
-        if (!this.DHCPLeaseField) {
-          // test field cannot be empty
-          this.error.DHCPLeaseField = this.$t("common.required");
+        if (!this.dhcpLeaseField) {
+          this.error.dhcpLeaseField = this.$t("common.required");
 
           if (isValidationOk) {
-            this.focusElement("DHCPLeaseField");
+            this.focusElement("dhcpLeaseField");
             isValidationOk = false;
           }
         }
       }
-      if (this.DNSEnableField && !this.DNSPrimaryField) {
-        // test field cannot be empty
-        this.error.DNSPrimaryField = this.$t("common.required");
+      if (this.dnsEnableField && !this.dnsPrimaryField) {
+        this.error.dnsPrimaryField = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("DNSPrimaryField");
+          this.focusElement("dnsPrimaryField");
           isValidationOk = false;
         }
       }
@@ -453,31 +449,30 @@ export default {
     },
     configureModuleValidationFailed(validationErrors) {
       this.loading.configureModule = false;
-      console.log(validationErrors);
 
       for (const validationError of validationErrors) {
         if (validationError.field === "dhcp-server.start") {
-          this.error.DHCPStartField = this.$t(
+          this.error.dhcpStartField = this.$t(
             "settings." + validationError.error
           );
         }
         if (validationError.field === "dhcp-server.end") {
-          this.error.DHCPEndField = this.$t(
+          this.error.dhcpEndField = this.$t(
             "settings." + validationError.error
           );
         }
         if (validationError.field === "dhcp-server.lease") {
-          this.error.DHCPLeaseField = this.$t(
+          this.error.dhcpLeaseField = this.$t(
             "settings." + validationError.error
           );
         }
         if (validationError.field === "dns-server.primary-server") {
-          this.error.DNSPrimaryField = this.$t(
+          this.error.dnsPrimaryField = this.$t(
             "settings." + validationError.error
           );
         }
         if (validationError.field === "dns-server.secondary-server") {
-          this.error.DNSSecondaryField = this.$t(
+          this.error.dnsSecondaryField = this.$t(
             "settings." + validationError.error
           );
         }
@@ -517,15 +512,15 @@ export default {
           data: {
             interface: this.interfaceField,
             "dhcp-server": {
-              enabled: this.DHCPEnableField,
-              start: this.DHCPStartField,
-              end: this.DHCPEndField,
-              lease: parseInt(this.DHCPLeaseField),
+              enabled: this.dhcpEnableField,
+              start: this.dhcpStartField,
+              end: this.dhcpEndField,
+              lease: parseInt(this.dhcpLeaseField),
             },
             "dns-server": {
-              enabled: this.DNSEnableField,
-              "primary-server": this.DNSPrimaryField,
-              "secondary-server": this.DNSSecondaryField,
+              enabled: this.dnsEnableField,
+              "primary-server": this.dnsPrimaryField,
+              "secondary-server": this.dnsSecondaryField,
             },
           },
           extra: {
