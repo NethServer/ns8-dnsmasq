@@ -291,7 +291,6 @@ export default {
     },
     setDNSvalidationFailed(validationErrors) {
       this.loading.setDNSrecords = false;
-      console.log("errors", validationErrors);
 
       for (const validationError of validationErrors) {
         if (validationError.field.split(".")[2] === "address") {
