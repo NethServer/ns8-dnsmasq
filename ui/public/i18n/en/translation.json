@@ -39,6 +39,8 @@
     "DNS_primary_label": "Primary forwarding server",
     "DNS_secondary_label": "Secondary forwarding server",
     "dhcp-server_format": "IPv4 format required",
+    "dhcp-server_invalid_type": "Number required",
+    "dhcp-server_number_gte": "Enter a positive number",
     "dns-server_format": "IPv4 format required",
     "dns-server_number_one_of": "IPv4 or IPv6 required"
   },
