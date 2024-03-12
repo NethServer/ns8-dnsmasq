@@ -33,7 +33,7 @@
         :class="{ 'current-page': isLinkActive('dnsrecords') }"
       >
         <template v-slot:nav-icon><List20 /></template>
-        <span>{{ $t("DNSrecords.title") }}</span>
+        <span>{{ $t("dns_records.title") }}</span>
       </cv-side-nav-link>
       <cv-side-nav-link
         @click="goToAppPage(instanceName, 'about')"
