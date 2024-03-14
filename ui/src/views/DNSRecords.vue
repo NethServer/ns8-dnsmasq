@@ -293,10 +293,12 @@ export default {
       this.loading.setDNSrecords = false;
 
       for (const validationError of validationErrors) {
-        if (validationError.field.split(".")[2] === "address") {
+        const fieldToken = validationError.field.split(".").pop();
+
+        if (fieldToken === "address") {
           this.error.address = this.$t("error." + validationError.error);
         }
-        if (validationError.field.split(".")[2] === "domain") {
+        if (fieldToken === "domain") {
           this.error.domain = this.$t("error." + validationError.error);
         }
       }
