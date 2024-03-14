@@ -82,7 +82,7 @@
           <cv-column>
             <cv-tile light>
               <cv-form @submit.prevent="configureModule">
-                <h4>DHCP</h4>
+                <h4>{{ $t("settings.DHCP_title") }}</h4>
                 <div class="title-description mg-bottom-xlg">
                   {{ $t("settings.DHCP_description") }}
                 </div>
@@ -149,7 +149,7 @@
           <cv-column>
             <cv-tile light>
               <cv-form @submit.prevent="configureModule">
-                <h4>DNS</h4>
+                <h4>{{ $t("settings.DNS_title") }}</h4>
                 <div class="title-description mg-bottom-xlg">
                   {{ $t("settings.DNS_description") }}
                 </div>
