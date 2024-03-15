@@ -1,16 +1,1 @@
-#!/usr/bin/env python3
-
-#
-# Copyright (C) 2024 Nethesis S.r.l.
-# SPDX-License-Identifier: GPL-3.0-or-later
-#
-
-import os
-
-import agent
-
-# execute only if traefik is the source of the event and the node_id is the same as the current node
-if os.getenv("AGENT_EVENT_SOURCE").startswith(f'node/{os.environ['NODE_ID']}'):
-    agent.run_helper("reload_hosts")
-
-agent.run_helper('systemctl', 'restart', os.getenv('MODULE_ID'))
+../hosts-changed/10handler

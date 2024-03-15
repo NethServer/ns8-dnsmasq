@@ -13,8 +13,8 @@ import agent
 
 # parse data and init variables
 data = json.load(sys.stdin)
-# execute only if traefik is the source of the event and the node_id is the same as the current node
-if os.environ['NODE_ID'] == str(data['node_id']):
-    agent.run_helper("reload_hosts")
+# skip if the event comes from another node
+if os.environ['NODE_ID'] != str(data['node_id']):
+    sys.exit(0)
 
 agent.run_helper('systemctl', 'restart', os.getenv('MODULE_ID'))
