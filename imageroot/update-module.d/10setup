@@ -5,7 +5,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-# update systemd service
+# This file will be executed during module creation and module update, be aware of that.
+
+# Create the dnsmasq.d and hosts_dir directory
+mkdir -p dnsmasq.d dnsmasq_hosts.d
+# Install systemd service
 install -m 644 ../dnsmasq.service "/etc/systemd/system/${MODULE_ID}.service"
 systemctl daemon-reload
 # check if the service is started, if yes, restart it
