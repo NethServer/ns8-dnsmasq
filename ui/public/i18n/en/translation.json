@@ -28,6 +28,8 @@
     "interface_placeholder": "Choose an interface",
     "disabled": "Disabled",
     "enabled": "Enabled",
+    "general_title": "General",
+    "general_description": "Dnsmasq operates only on the private network of its interface",
     "DHCP_title": "DHCP",
     "DHCP_description": "Network clients receive an IP address lease from the given range.",
     "DHCP_enable_label": "Enable DHCP",

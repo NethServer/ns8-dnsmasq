@@ -37,6 +37,11 @@
     >
       <cv-column>
         <cv-tile light>
+          <cv-skeleton-text width="100px" heading />
+          <cv-skeleton-text
+            width="60%"
+            class="title-description mg-bottom-xlg"
+          />
           <cv-skeleton-text width="100px" class="mg-bottom-lg" />
           <cv-skeleton-text width="70%" heading class="mg-bottom-lg" />
           <cv-button-skeleton size="default" />
@@ -49,6 +54,10 @@
           <cv-column>
             <cv-tile light>
               <cv-form @submit.prevent="configureModule">
+                <h4>{{ $t("settings.general_title") }}</h4>
+                <div class="title-description mg-bottom-xlg">
+                  {{ $t("settings.general_description") }}
+                </div>
                 <cv-combo-box
                   v-model="interfaceField"
                   :title="$t('settings.interface_label')"
