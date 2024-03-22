@@ -2,5 +2,38 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "branchPrefix": "renovate-",
+  "branchNameStrict": true,
+  "ignorePaths": [
+    "**/ui/**"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "docker.io/node"
+      ],
+      "allowedVersions": "<= 18"
+    }
+  ],
+  "customDatasources": {
+    "dnsmasq": {
+      "defaultRegistryUrlTemplate": "https://dnsmasq.org/",
+      "format": "html"
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "build-images.sh"
+      ],
+      "matchStrings": [
+        "DNSMASQ_VERSION=(?<currentValue>[^\\s]*)$"
+      ],
+      "versioningTemplate": "regex:(?<major>\\d+)\\.(?<minor>\\d+)",
+      "depNameTemplate": "dnsmasq",
+      "datasourceTemplate": "custom.dnsmasq"
+    }
   ]
 }
