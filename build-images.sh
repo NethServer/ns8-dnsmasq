@@ -14,7 +14,7 @@ images=()
 repobase="${REPOBASE:-ghcr.io/nethserver}"
 
 # build the runtime image
-DNSMASQ_VERSION=2.89
+DNSMASQ_VERSION=2.90
 podman build \
     --force-rm \
     --layers \
