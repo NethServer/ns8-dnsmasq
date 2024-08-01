@@ -163,7 +163,7 @@
                   {{ $t("settings.DNS_description") }}
                 </div>
                 <cv-row
-                  v-if="are_dns_bound && !dnsEnableField && !is_dns_enabled"
+                  v-if="is_dns_bound && !dnsEnableField && !is_dns_enabled"
                 >
                   <cv-column>
                     <NsInlineNotification
@@ -182,7 +182,7 @@
                   value="dnsEnableField"
                   formItem
                   :disabled="
-                    are_dns_bound && !dnsEnableField && !is_dns_enabled
+                    is_dns_bound && !dnsEnableField && !is_dns_enabled
                   "
                   ref="dnsEnableField"
                 >
@@ -220,7 +220,7 @@
                   :disabled="
                     loading.getConfiguration ||
                     loading.configureModule ||
-                    (are_dns_bound && !dnsEnableField && !is_dns_enabled)
+                    (is_dns_bound && !dnsEnableField && !is_dns_enabled)
                   "
                   >{{ $t("settings.save") }}</NsButton
                 >
@@ -269,7 +269,7 @@ export default {
       dhcpStartField: "",
       dhcpEndField: "",
       dhcpLeaseField: 12,
-      are_dns_bound: false,
+      is_dns_bound: false,
       is_dns_enabled: false,
       dnsEnableField: false,
       dnsPrimaryField: "",
@@ -427,7 +427,7 @@ export default {
       this.dnsEnableField = dns_server["enabled"];
       this.dnsPrimaryField = dns_server["primary-server"];
       this.dnsSecondaryField = dns_server["secondary-server"];
-      this.are_dns_bound = config["are_dns_bound"];
+      this.is_dns_bound = config["is_dns_bound"];
       this.is_dns_enabled = config["is_dns_enabled"];
     },
     validateConfigureModule() {

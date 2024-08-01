@@ -101,7 +101,7 @@
             "description": "True if dnsmasq is configured",
             "type": "boolean"
         },
-        "are_dns_bound": {
+        "is_dns_bound": {
             "description": "True if DNS servers are bound to the interface",
             "type": "boolean"
         }
@@ -111,6 +111,6 @@
         "dhcp-server",
         "dns-server",
         "is_dns_enabled",
-        "are_dns_bound"
+        "is_dns_bound"
     ]
 }
