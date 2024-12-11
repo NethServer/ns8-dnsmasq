@@ -13,6 +13,7 @@ TimeoutStopSec=70
 ExecStartPre=/bin/rm \
         -f %t/%n.ctr-id
 ExecStartPre=runagent -m %N reload_hosts
+ExecStartPre=runagent -m %N expand-config
 ExecStart=/usr/bin/podman run \
         --cidfile=%t/%n.ctr-id \
         --cgroups=no-conmon \
