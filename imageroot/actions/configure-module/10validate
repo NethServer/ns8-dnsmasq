@@ -65,7 +65,7 @@ if request["dhcp-server"]["enabled"]:
         sys.exit(2)
 
 if request["dns-server"]["enabled"]:
-    is_dns_bound = network.are_ports_53_bound()
+    is_dns_bound = network.are_ports_53_bound() or bool(network.get_local_samba_dcs())
     # read config.json and determine if dns is used for this instance
     config = json.load(open("config.json"))
     is_dns_enabled = config["dns-server"]["enabled"]
