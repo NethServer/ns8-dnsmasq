@@ -19,9 +19,8 @@ ExecStart=/usr/bin/podman run \
         --cgroups=no-conmon \
         --rm \
         --sdnotify=conmon \
-        -d \
-        --replace \
-        --name=dnsmasq \
+        --detach \
+        --replace --name=%N \
         --network=host \
         --cap-add=NET_ADMIN,NET_RAW \
         --volume=/var/lib/nethserver/%N/state/dnsmasq.d:/etc/dnsmasq.d:Z \
