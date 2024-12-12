@@ -8,19 +8,19 @@ RequiresMountsFor=%t/containers
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=/var/lib/nethserver/%N/state/environment
-Restart=on-failure
+Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm \
         -f %t/%n.ctr-id
 ExecStartPre=runagent -m %N reload_hosts
+ExecStartPre=runagent -m %N expand-config
 ExecStart=/usr/bin/podman run \
         --cidfile=%t/%n.ctr-id \
         --cgroups=no-conmon \
         --rm \
         --sdnotify=conmon \
-        -d \
-        --replace \
-        --name=dnsmasq \
+        --detach \
+        --replace --name=%N \
         --network=host \
         --cap-add=NET_ADMIN,NET_RAW \
         --volume=/var/lib/nethserver/%N/state/dnsmasq.d:/etc/dnsmasq.d:Z \

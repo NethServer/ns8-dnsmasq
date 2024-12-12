@@ -6,22 +6,9 @@
 #
 
 import json
+import agent
 
-config = {
-    "interface": "",
-    "dhcp-server": {
-        "enabled": False,
-        "start": "",
-        "end": "",
-        "lease": 12
-    },
-    "dns-server": {
-        "enabled": False,
-        "primary-server": "",
-        "secondary-server": ""
-    },
-}
-
-open("config.json", "w").write(json.dumps(config))
+# Force the initialization of config.json for get-configuration:
+agent.run_helper('expand-config').check_returncode()
 
 open("dns-records.json", "w").write(json.dumps({"records": []}))

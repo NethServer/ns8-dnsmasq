@@ -5,6 +5,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
+import sys
+import os
+import agent
 import ipaddress
 import json
 import subprocess
@@ -78,3 +81,18 @@ def are_ports_53_bound(ip='127.0.0.1'):
     Check if both TCP and UDP ports 53 are bound on a specific IP address.
     """
     return __is_port_bound(53, 'tcp', ip) or __is_port_bound(53, 'udp', ip)
+
+def get_local_samba_dcs():
+    """
+    Lookup Samba modules installed on the local node. Returns an array of
+    Samba module IDs that were installed on the local node. Typically the
+    array has 1 element at most.
+    """
+    rdb = agent.redis_connect(use_replica=True)
+    local_samba_dcs = []
+    for module_id, node_id in rdb.hgetall("cluster/module_node").items():
+        if node_id != os.environ["NODE_ID"]:
+            continue
+        if module_id.startswith('samba'):
+            local_samba_dcs.append(module_id)
+    return local_samba_dcs
