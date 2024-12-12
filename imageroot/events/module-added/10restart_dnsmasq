@@ -8,7 +8,6 @@
 import json
 import os
 import sys
-
 import agent
 
 data = json.load(sys.stdin)
@@ -17,4 +16,4 @@ data = json.load(sys.stdin)
 if os.environ['NODE_ID'] != str(data['node']):
     sys.exit(0)
 
-agent.run_helper('systemctl', 'restart', os.getenv('MODULE_ID'))
+agent.run_helper('systemctl', 'try-restart', os.getenv('MODULE_ID'))
