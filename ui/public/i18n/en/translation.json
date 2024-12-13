@@ -44,6 +44,8 @@
         "DHCP_end_label": "IP range end",
         "DHCP_lease_label": "Lease time",
         "DHCP_lease_hint": "Hours",
+        "DHCP_gateway_label": "Gateway",
+        "DHCP_gateway_hint": "Default gateway for the DHCP clients",
         "DNS_title": "DNS",
         "DNS_description": "Network names forward and cache service, listening on port 53.",
         "DNS_enable_label": "Enable DNS",

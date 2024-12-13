@@ -43,13 +43,26 @@
                     "description": "Lease time in hours",
                     "type": "integer",
                     "minimum": 1
+                },
+                "gateway": {
+                    "description": "Gateway to be assigned to clients",
+                    "type": "string",
+                    "oneOf": [
+                        {
+                            "format": "ipv4"
+                        },
+                        {
+                            "maxLength": 0
+                        }
+                    ]
                 }
             },
             "required": [
                 "enabled",
                 "start",
                 "end",
-                "lease"
+                "lease",
+                "gateway"
             ]
         },
         "dns-server": {

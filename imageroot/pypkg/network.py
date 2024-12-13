@@ -5,7 +5,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-import sys
 import os
 import agent
 import ipaddress
@@ -41,8 +40,16 @@ def __format_interface(interface):
         "name": interface["ifname"],
         "addresses": [],
         "start": "",
-        "end": ""
+        "end": "",
+        "gateway": ""
     }
+    gateway = subprocess.run(["ip", "-4", "-j", "route", "show", "dev", interface["ifname"], "default"], check=True,
+                             capture_output=True, text=True).stdout
+    gateway = json.loads(gateway)
+    if len(gateway) > 0:
+        gateway = gateway[0]['gateway']
+    else:
+        gateway = None
     for address in interface["addr_info"]:
         if address["family"] == "inet":
             network = ipaddress.IPv4Network(address["local"] + "/" + str(address["prefixlen"]), strict=False)
@@ -53,6 +60,8 @@ def __format_interface(interface):
             # last address wins the start and end fields
             interface_data["start"] = network.network_address + 1
             interface_data["end"] = network.network_address + network.num_addresses - 2
+            if gateway is not None and ipaddress.IPv4Address(gateway) in network:
+                interface_data["gateway"] = gateway
 
     return interface_data
 
