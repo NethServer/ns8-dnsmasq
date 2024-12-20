@@ -35,8 +35,10 @@ api-cli run module/<module-id>/get-available-interfaces
 ```json
 {
     "data": [
-        "enp0s3",
-        "enp0s8"
+        {
+            "name": "enp1s0",
+            "network": "192.168.122.0/24"
+        }
     ]
 }
 ```
@@ -53,7 +55,7 @@ Configures the module with the given parameters, it will then start the dnsmasq 
         "end": "10.0.0.100",
         "enabled": true,
         "lease": 10,
-        "start": "10.0.0.20",
+        "start": "10.0.0.20"
     },
     "dns-server": {
         "enabled": true,

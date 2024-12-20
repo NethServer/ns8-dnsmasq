@@ -8,8 +8,22 @@
         "data": {
             "type": "array",
             "items": {
-                "type": "string",
-                "description": "Interface name to pass to configure-module."
+                "type": "object",
+                "description": "Interface configuration to pass to the UI.",
+                "properties": {
+                    "name": {
+                        "description": "Interface name",
+                        "type": "string"
+                    },
+                    "network": {
+                        "description": "Network ip/netmask",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "network"
+                ]
             }
         }
     },

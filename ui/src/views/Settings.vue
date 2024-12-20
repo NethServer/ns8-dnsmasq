@@ -373,9 +373,9 @@ export default {
       const interfaces = [];
       taskResult.output.data.forEach((iface) => {
         interfaces.push({
-          name: iface,
-          label: iface,
-          value: iface,
+          name: iface["name"],
+          label: iface["name"] + " (" + iface["network"] + ")",
+          value: iface["name"],
         });
       });
       this.availableInterfaces = interfaces;
