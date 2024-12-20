@@ -40,7 +40,10 @@
         "dhcp-server_number_gte": "positive Zahl eingeben",
         "general_description": "Dnsmasq arbeitet nur im privaten Netzbereich der zugewiesen Schnittstelle",
         "dns_server_is_running": "Aktuell ist bereits ein DNS-Server gestartet",
-        "dns_server_is_running_description": "Das DNS-Feature kann nicht aktiviert werden, da auf diesem Knoten bereits ein DNS-Server aktiv ist. Eine andere Anwendungen (z.B. Samba DC) könnte den DNS-Port verwenden."
+        "dns_server_is_running_description": "Das DNS-Feature kann nicht aktiviert werden, da auf diesem Knoten bereits ein DNS-Server aktiv ist. Eine andere Anwendungen (z.B. Samba DC) könnte den DNS-Port verwenden.",
+        "DHCP_gateway_label": "Gateway",
+        "DHCP_gateway_hint": "Default gateway for the DHCP clients",
+        "not_in_network": "Address provided is not in the network of the selected interface"
     },
     "common": {
         "required": "Erforderlich",
