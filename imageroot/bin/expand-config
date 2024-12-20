@@ -21,7 +21,8 @@ except FileNotFoundError:
             "enabled": False,
             "start": "",
             "end": "",
-            "lease": 12
+            "lease": 12,
+            "gateway": "",
         },
         "dns-server": {
             "enabled": False,
@@ -45,6 +46,8 @@ with open("dnsmasq.d/00config.conf", "w") as file:
     # write dhcp-server configuration
     if config["dhcp-server"]["enabled"]:
         file.write("dhcp-range=set:default," + config["dhcp-server"]["start"] + "," + config["dhcp-server"]["end"] + "," + str(config["dhcp-server"]["lease"]) + "h\n")
+        if "gateway" in config["dhcp-server"] and config["dhcp-server"]["gateway"] != "":
+            file.write("dhcp-option=tag:default,option:router," + config["dhcp-server"]["gateway"] + "\n")
 
     # write dns-server configuration, if no local Samba DC is present
     if len(local_samba_dcs) > 0:

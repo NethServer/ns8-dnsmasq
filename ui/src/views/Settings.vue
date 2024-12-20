@@ -139,6 +139,16 @@
                     ref="dhcpLeaseField"
                   >
                   </cv-text-input>
+                  <cv-text-input
+                    :label="$t('settings.DHCP_gateway_label')"
+                    :helper-text="$t('settings.DHCP_gateway_hint')"
+                    v-model="dhcpGatewayField"
+                    :disabled="
+                      loading.getConfiguration || loading.configureModule
+                    "
+                    :invalid-message="error.dhcpGatewayField"
+                    ref="dhcpGatewayField"
+                  />
                 </div>
                 <NsButton
                   kind="secondary"
@@ -269,6 +279,7 @@ export default {
       dhcpStartField: "",
       dhcpEndField: "",
       dhcpLeaseField: 12,
+      dhcpGatewayField: "",
       is_dns_bound: false,
       is_dns_enabled: false,
       dnsEnableField: false,
@@ -288,6 +299,7 @@ export default {
         dhcpStartField: "",
         dhcpEndField: "",
         dhcpLeaseField: "",
+        dhcpGatewayField: "",
         dnsEnableField: "",
         dnsPrimaryField: "",
         dnsSecondaryField: "",
@@ -424,6 +436,7 @@ export default {
       this.dhcpStartField = dhcp_server["start"];
       this.dhcpEndField = dhcp_server["end"];
       this.dhcpLeaseField = dhcp_server["lease"].toString();
+      this.dhcpGatewayField = dhcp_server["gateway"];
       this.dnsEnableField = dns_server["enabled"];
       this.dnsPrimaryField = dns_server["primary-server"];
       this.dnsSecondaryField = dns_server["secondary-server"];
@@ -467,6 +480,14 @@ export default {
             isValidationOk = false;
           }
         }
+        if (!this.dhcpGatewayField) {
+          this.error.dhcpGatewayField = this.$t("common.required");
+
+          if (isValidationOk) {
+            this.focusElement("dhcpGatewayField");
+            isValidationOk = false;
+          }
+        }
       }
       if (this.dnsEnableField && !this.dnsPrimaryField) {
         this.error.dnsPrimaryField = this.$t("common.required");
@@ -495,6 +516,11 @@ export default {
         }
         if (validationError.field === "dhcp-server.lease") {
           this.error.dhcpLeaseField = this.$t(
+            "settings." + validationError.error
+          );
+        }
+        if (validationError.field === "dhcp-server.gateway") {
+          this.error.dhcpGatewayField = this.$t(
             "settings." + validationError.error
           );
         }
@@ -548,6 +574,7 @@ export default {
               start: this.dhcpStartField,
               end: this.dhcpEndField,
               lease: parseInt(this.dhcpLeaseField),
+              gateway: this.dhcpGatewayField,
             },
             "dns-server": {
               enabled: this.dnsEnableField,
