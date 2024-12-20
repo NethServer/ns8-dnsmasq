@@ -71,7 +71,10 @@ def list_interfaces():
     Returns a list of interfaces with their available addresses.
     """
     subprocess_result = subprocess.run(["ip", "-4", "-j", "addr"], check=True, capture_output=True)
-    return [__format_interface(interface) for interface in json.loads(subprocess_result.stdout) if __filter_interface(interface)]
+    interfaces = [__format_interface(interface) for interface in json.loads(subprocess_result.stdout) if __filter_interface(interface)]
+    if os.environ.get('DNSMASQ_RELAXED_INTERFACE_VALIDATION', "0") == "0":
+        interfaces = [interface for interface in interfaces if interface['addresses'][0]['network'].is_private]
+    return interfaces
 
 def __is_port_bound(port, protocol, ip='127.0.0.1'):
     """
