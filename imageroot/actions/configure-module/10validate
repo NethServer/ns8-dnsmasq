@@ -35,6 +35,7 @@ if request["dhcp-server"]["enabled"]:
     # check if start and end are in the same network being configured
     start = ipaddress.IPv4Address(request["dhcp-server"]["start"])
     end = ipaddress.IPv4Address(request["dhcp-server"]["end"])
+    gateway = ipaddress.IPv4Address(request["dhcp-server"]["gateway"])
     interface_network = next(interface for interface in interfaces if interface["name"] == request["interface"])
     start_found = False
     for address in interface_network["addresses"]:
@@ -46,6 +47,12 @@ if request["dhcp-server"]["enabled"]:
     for address in interface_network["addresses"]:
         if end in address["network"]:
             end_found = True
+            break
+
+    gateway_found = False
+    for address in interface_network["addresses"]:
+        if gateway in address["network"]:
+            gateway_found = True
             break
 
     if not start_found:
@@ -62,6 +69,13 @@ if request["dhcp-server"]["enabled"]:
     if start > end:
         agent.set_status('validation-failed')
         json.dump([{'field':'dhcp-server.start', 'parameter':'dhcp-server.start','value': request['dhcp-server']['start'], 'error':'must_be_less_than_end'}], fp=sys.stdout)
+        sys.exit(2)
+
+    if not gateway_found:
+        agent.set_status('validation-failed')
+        json.dump([{'field': 'dhcp-server.gateway', 'parameter': 'dhcp-server.gateway',
+                    'value': request["dhcp-server"]["gateway"],
+                    'error': 'not_in_network'}], fp=sys.stdout)
         sys.exit(2)
 
 if request["dns-server"]["enabled"]:

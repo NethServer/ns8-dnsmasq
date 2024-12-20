@@ -7,7 +7,6 @@
 
 import json
 import sys
-import agent
 import network
 
 config = json.load(open("config.json"))
@@ -17,6 +16,7 @@ if config["interface"] != "" and config["dhcp-server"]["start"] == "" and config
     interface = next(interface for interface in interfaces if interface["name"] == config["interface"])
     config["dhcp-server"]["start"] = str(interface["start"])
     config["dhcp-server"]["end"] = str(interface["end"])
+    config["dhcp-server"]["gateway"] = str(interface["gateway"])
 
 # we test if tcp/53 or udp/53 is bound to the interface, or local Samba DCs are present
 local_samba_dcs = network.get_local_samba_dcs()
