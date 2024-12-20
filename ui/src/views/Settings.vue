@@ -58,7 +58,7 @@
                 <div class="title-description mg-bottom-xlg">
                   {{ $t("settings.general_description") }}
                 </div>
-                <cv-combo-box
+                <NsComboBox
                   v-model="interfaceField"
                   :title="$t('settings.interface_label')"
                   :label="$t('settings.interface_placeholder')"
@@ -73,7 +73,7 @@
                   "
                   ref="interfaceField"
                 >
-                </cv-combo-box>
+                </NsComboBox>
                 <NsButton
                   kind="primary"
                   :icon="Save20"
@@ -431,7 +431,9 @@ export default {
       const dhcp_server = config["dhcp-server"];
       const dns_server = config["dns-server"];
 
-      this.interfaceField = config["interface"];
+      this.$nextTick(() => {
+        this.interfaceField = config["interface"];
+      });
       this.dhcpEnableField = dhcp_server["enabled"];
       this.dhcpStartField = dhcp_server["start"];
       this.dhcpEndField = dhcp_server["end"];
