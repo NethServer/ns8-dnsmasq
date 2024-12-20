@@ -72,7 +72,7 @@ def list_interfaces():
     """
     subprocess_result = subprocess.run(["ip", "-4", "-j", "addr"], check=True, capture_output=True)
     interfaces = [__format_interface(interface) for interface in json.loads(subprocess_result.stdout) if __filter_interface(interface)]
-    if os.environ.get('DNSMASQ_RELAXED_INTERFACE_VALIDATION', "0") == "0":
+    if os.environ.get('DNSMASQ_STRICT_INTERFACE_VALIDATION', "0") == "1":
         interfaces = [interface for interface in interfaces if interface['addresses'][0]['network'].is_private]
     return interfaces
 
