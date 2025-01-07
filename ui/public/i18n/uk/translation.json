@@ -1,0 +1,112 @@
+{
+    "settings": {
+        "configure_instance": "Configure {instance}",
+        "DHCP_title": "DHCP",
+        "general_title": "Загальний",
+        "DHCP_start_label": "Початок діапазону IP",
+        "DHCP_end_label": "Кінець діапазону IP-адрес",
+        "DNS_enable_label": "Увімкніть DNS",
+        "DNS_primary_label": "Основний сервер пересилання",
+        "DNS_description": "Служба пересилання і кешу мережевих імен, прослуховування порту 53.",
+        "DNS_secondary_label": "Вторинний сервер пересилання",
+        "dns-server_format": "Потрібен формат IPv4",
+        "not_in_network": "Надана адреса не входить до мережі вибраного інтерфейсу",
+        "interface_label": "Мережевий інтерфейс",
+        "DHCP_description": "Клієнти мережі отримують оренду IP-адрес із заданого діапазону.",
+        "dns-server_number_one_of": "Потрібен IPv4 або IPv6",
+        "disabled": "Disabled",
+        "interface_placeholder": "Виберіть інтерфейс",
+        "DHCP_gateway_label": "Шлюз",
+        "dns_server_is_running": "Зараз працює сервер DNS",
+        "DNS_title": "DNS",
+        "dns_server_is_running_description": "Ви не можете ввімкнути функцію DNS, оскільки DNS-сервер уже активний на цьому вузлі. Інша програма, наприклад Samba DC, може використовувати порт DNS.",
+        "dhcp-server_invalid_type": "Необхідний номер",
+        "save": "Save",
+        "DHCP_lease_label": "Час оренди",
+        "enabled": "Enabled",
+        "DHCP_enable_label": "Увімкніть DHCP",
+        "dhcp-server_format": "Потрібен формат IPv4",
+        "DHCP_lease_hint": "години",
+        "dhcp-server_number_gte": "Введіть позитивне число",
+        "title": "Settings",
+        "DHCP_gateway_hint": "Шлюз за замовчуванням для клієнтів DHCP",
+        "general_description": "Dnsmasq працює лише в приватній мережі свого інтерфейсу"
+    },
+    "action": {
+        "get-dns-records": "Отримайте записи DNS",
+        "get-module-info": "Get module info",
+        "list-backup-repositories": "List backup repositories",
+        "list-installed-modules": "List installed modules",
+        "list-backups": "List backups",
+        "get-status": "Get status",
+        "configure-module": "Configure module",
+        "set-dns-records": "Встановити записи DNS",
+        "get-configuration": "Get configuration",
+        "get-name": "Get name"
+    },
+    "error": {
+        "records_format": "Недійсний формат",
+        "403": "Operation not authorized",
+        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "401": "Invalid authentication",
+        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "generic_error": "Something went wrong",
+        "error": "Error",
+        "network_timeout": "Network timeout",
+        "404": "Resource not found",
+        "network_error": "Network error",
+        "validation_error": "Validation error"
+    },
+    "dns_records": {
+        "add_dns_record": "Додайте запис DNS",
+        "no_records": "Немає записів DNS",
+        "no_records_description": "Немає запису DNS",
+        "address": "IP адреса",
+        "delete_dns_record": "Видалити запис DNS",
+        "domain": "Ім'я хоста",
+        "title": "DNS записи",
+        "search_record": "Пошуковий запис"
+    },
+    "common": {
+        "edit": "Редагувати",
+        "required": "Required",
+        "work_in_progress": "Work in progress",
+        "clear_search": "Очистити пошук",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "processing": "Processing...",
+        "no_search_results_description": "Спробуйте змінити пошуковий запит",
+        "no_search_results": "Результатів немає",
+        "close": "Close"
+    },
+    "status": {
+        "created": "Created",
+        "size": "Size",
+        "name": "Name",
+        "no_images": "No images",
+        "app_volumes": "App volume | App volumes",
+        "services": "Service | Services",
+        "app_images": "App image | App images",
+        "no_services": "No services",
+        "app_instance": "App instance",
+        "mount": "Mount",
+        "title": "Status",
+        "installation_node": "Installation node",
+        "node": "Node",
+        "no_volumes": "No volumes"
+    },
+    "pagination": {
+        "items_per_page": "Елементів на сторінці:",
+        "page_number": "Номер сторінки",
+        "next_page": "Наступна сторінка",
+        "range_of_total_items": "{range} із {total} елементів",
+        "of_total_pages": "із {total} сторінок",
+        "previous_page": "Попередня сторінка"
+    },
+    "about": {
+        "title": "About"
+    },
+    "task": {
+        "cannot_create_task": "Cannot create task {action}"
+    }
+}
