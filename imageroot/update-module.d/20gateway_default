@@ -9,11 +9,10 @@ import json
 
 config = json.load(open('config.json'))
 
-if config['dhcp-server']['enabled']:
-    if 'gateway' not in config['dhcp-server']:
-        # the field is left empty, to avoid assigning a default value
-        # this is because if in any case the interface the dhcp-server is running
-        # has two or more ips, a default gateway might cause way too many issues
-        config['dhcp-server']['gateway'] = ''
+if 'gateway' not in config['dhcp-server']:
+    # the field is left empty, to avoid assigning a default value
+    # this is because if in any case the interface the dhcp-server is running
+    # has two or more ips, a default gateway might cause way too many issues
+    config['dhcp-server']['gateway'] = ''
 
 json.dump(config, fp=open('config.json', 'w'))
