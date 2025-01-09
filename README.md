@@ -18,7 +18,7 @@ The module provides the following API endpoints:
 - `configure-module`: Configure the module
 - `get-configuration`: Get the module configuration active
 - `get-dns-records`: Get all the manual DNS records
-- `set-dns-records`: Set the the DNS records
+- `set-dns-records`: Set the DNS records
 - `get-leases`: Get the DHCP leases active
 
 
@@ -35,8 +35,10 @@ api-cli run module/<module-id>/get-available-interfaces
 ```json
 {
     "data": [
-        "enp0s3",
-        "enp0s8"
+        {
+            "name": "enp1s0",
+            "network": "192.168.122.0/24"
+        }
     ]
 }
 ```
@@ -53,7 +55,7 @@ Configures the module with the given parameters, it will then start the dnsmasq 
         "end": "10.0.0.100",
         "enabled": true,
         "lease": 10,
-        "start": "10.0.0.20",
+        "start": "10.0.0.20"
     },
     "dns-server": {
         "enabled": true,
@@ -148,6 +150,17 @@ api-cli run module/<module-id>/get-leases
     ]
 }
 ```
+
+## Restore public interfaces
+
+When installing the module from the version `1.2.0` and above, the module will hide the interfaces that have public IP
+addresses from the picker in the configuration. This is done to avoid the user to select an interface that is not
+meant to be used for DHCP and local DNS services. The list of the possibles IPs that are marked as global is taken
+from the [IANA specs](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml)
+used by Python `ipaddress` module.
+
+To restore the old behavior and show all the interfaces in the picker, you can either remove the
+`DNSMASQ_STRICT_INTERFACE_VALIDATION` environment variable from the module environment or set it to `0`.
 
 ## Uninstall
 

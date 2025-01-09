@@ -11,8 +11,14 @@ import sys
 import network
 
 interfaces = network.list_interfaces()
-interfaces_names = [interface["name"] for interface in interfaces]
+response = list[dict]()
+for interface in interfaces:
+    if len(interface['addresses']) > 0:
+        response.append({
+            "name": interface["name"],
+            "network": format(interface['addresses'][0]['network'])
+        })
 
 json.dump({
-    "data": interfaces_names
+    "data": response
 }, sys.stdout)
