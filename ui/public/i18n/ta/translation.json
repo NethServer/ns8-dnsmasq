@@ -1,0 +1,112 @@
+{
+    "settings": {
+        "DNS_enable_label": "டி.என்.எச்",
+        "dns-server_format": "ஐபிவி 4 வடிவம் தேவை",
+        "not_in_network": "வழங்கப்பட்ட முகவரி தேர்ந்தெடுக்கப்பட்ட இடைமுகத்தின் நெட்வொர்க்கில் இல்லை",
+        "DHCP_title": "டி.எச்.சி.பி.",
+        "DNS_primary_label": "முதன்மை பகிர்தல் சேவையகம்",
+        "interface_label": "பிணைய இடைமுகம்",
+        "general_title": "பொது",
+        "configure_instance": "{உதாரணத்தை உள்ளமைக்கவும்",
+        "DHCP_start_label": "ஐபி வரம்பு தொடக்க",
+        "DHCP_description": "பிணைய வாடிக்கையாளர்கள் கொடுக்கப்பட்ட வரம்பிலிருந்து ஐபி முகவரி குத்தகையைப் பெறுகிறார்கள்.",
+        "dns-server_number_one_of": "ஐபிவி 4 அல்லது ஐபிவி 6 தேவை",
+        "disabled": "Disabled",
+        "interface_placeholder": "ஒரு இடைமுகத்தைத் தேர்வுசெய்க",
+        "DHCP_end_label": "ஐபி வரம்பு முடிவு",
+        "DHCP_gateway_label": "நுழைவாயில்",
+        "dns_server_is_running": "ஒரு டிஎன்எச் சேவையகம் தற்போது இயங்குகிறது",
+        "DNS_description": "பிணையம் பெயர்கள் முன்னோக்கி மற்றும் கேச் பணி, துறைமுகம் 53 இல் கேட்பது.",
+        "DNS_secondary_label": "இரண்டாம் நிலை பகிர்தல் சேவையகம்",
+        "DNS_title": "டி.என்.எச்",
+        "dns_server_is_running_description": "இந்த முனையில் டிஎன்எச் சேவையகம் ஏற்கனவே செயலில் இருப்பதால் நீங்கள் டிஎன்எச் அம்சத்தை இயக்க முடியாது. சம்பா டி.சி போன்ற மற்றொரு பயன்பாடு டி.என்.எச் போர்ட்டைப் பயன்படுத்தலாம்.",
+        "dhcp-server_invalid_type": "தேவை",
+        "save": "Save",
+        "DHCP_lease_label": "குத்தகை நேரம்",
+        "enabled": "Enabled",
+        "dhcp-server_format": "ஐபிவி 4 வடிவம் தேவை",
+        "DHCP_enable_label": "DHCP ஐ இயக்கு",
+        "DHCP_lease_hint": "மணி",
+        "title": "Settings",
+        "dhcp-server_number_gte": "நேர்மறை எண்ணை உள்ளிடவும்",
+        "DHCP_gateway_hint": "DHCP வாடிக்கையாளர்களுக்கான இயல்புநிலை நுழைவாயில்",
+        "general_description": "DNSMASQ அதன் இடைமுகத்தின் தனிப்பட்ட நெட்வொர்க்கில் மட்டுமே இயங்குகிறது"
+    },
+    "error": {
+        "error": "Error",
+        "records_format": "தவறான வடிவம்",
+        "403": "Operation not authorized",
+        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "401": "Invalid authentication",
+        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "generic_error": "Something went wrong",
+        "network_timeout": "Network timeout",
+        "404": "Resource not found",
+        "network_error": "Network error",
+        "validation_error": "Validation error"
+    },
+    "action": {
+        "get-dns-records": "டிஎன்எச் பதிவுகளைப் பெறுங்கள்",
+        "list-backup-repositories": "List backup repositories",
+        "get-module-info": "Get module info",
+        "list-installed-modules": "List installed modules",
+        "list-backups": "List backups",
+        "get-status": "Get status",
+        "configure-module": "Configure module",
+        "set-dns-records": "டிஎன்எச் பதிவுகளை அமைக்கவும்",
+        "get-configuration": "Get configuration",
+        "get-name": "Get name"
+    },
+    "dns_records": {
+        "add_dns_record": "டிஎன்எச் பதிவைச் சேர்க்கவும்",
+        "no_records": "டிஎன்எச் பதிவுகள் இல்லை",
+        "no_records_description": "டி.என்.எச் பதிவு இல்லை",
+        "address": "ஐபி முகவரி",
+        "delete_dns_record": "டிஎன்எச் பதிவை நீக்கு",
+        "domain": "புரவலன்பெயர்",
+        "title": "டிஎன்எச் பதிவுகள்",
+        "search_record": "தேடல் பதிவு"
+    },
+    "common": {
+        "edit": "தொகு",
+        "required": "Required",
+        "work_in_progress": "Work in progress",
+        "clear_search": "தேடலை அழி",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "processing": "செயலாக்கம் ...",
+        "no_search_results_description": "உங்கள் தேடல் வினவலை மாற்ற முயற்சிக்கவும்",
+        "no_search_results": "முடிவுகள் இல்லை",
+        "close": "Close"
+    },
+    "status": {
+        "created": "Created",
+        "size": "Size",
+        "name": "Name",
+        "no_images": "No images",
+        "app_volumes": "App volume | App volumes",
+        "services": "Service | Services",
+        "app_images": "App image | App images",
+        "no_services": "No services",
+        "app_instance": "App instance",
+        "mount": "Mount",
+        "title": "Status",
+        "installation_node": "Installation node",
+        "node": "Node",
+        "no_volumes": "No volumes"
+    },
+    "pagination": {
+        "items_per_page": "ஒரு பக்கத்திற்கு உருப்படிகள்:",
+        "next_page": "அடுத்த பக்கம்",
+        "page_number": "பக்க எண்",
+        "range_of_total_items": "{range} உருப்படிகளின் {வரம்பு",
+        "of_total_pages": "{total} பக்கங்கள்",
+        "previous_page": "முந்தைய பக்கம்"
+    },
+    "about": {
+        "title": "About"
+    },
+    "task": {
+        "cannot_create_task": "Cannot create task {action}"
+    }
+}
