@@ -52,6 +52,10 @@ with open("dnsmasq.d/00config.conf", "w") as file:
     # write dns-server configuration, if no local Samba DC is present
     if len(local_samba_dcs) > 0:
         print("Local Active Directory DC found, DNS feature is blocked.", local_samba_dcs, file=sys.stderr)
+        if 'interface' in config and config['interface'] != '':
+            # retrieve the first network interface that matches the configuration, then get the first IP address provided
+            interface = next(interface for interface in network.list_interfaces() if interface["name"] == config["interface"])
+            file.write("dhcp-option=6," + interface["addresses"][0]["address"]
         file.write("port=0\n")
     elif config["dns-server"]["enabled"]:
         file.write("server=" + config["dns-server"]["primary-server"] + "\n")
