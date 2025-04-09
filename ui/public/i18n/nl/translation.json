@@ -1,0 +1,112 @@
+{
+    "settings": {
+        "configure_instance": "Configure {instance}",
+        "dns-server_format": "IPv4 format required",
+        "not_in_network": "Address provided is not in the network of the selected interface",
+        "DHCP_title": "DHCP",
+        "DNS_enable_label": "Enable DNS",
+        "DNS_primary_label": "Primary forwarding server",
+        "interface_label": "Network interface",
+        "general_title": "General",
+        "DHCP_description": "Network clients receive an IP address lease from the given range.",
+        "DHCP_start_label": "IP range start",
+        "dns-server_number_one_of": "IPv4 or IPv6 required",
+        "disabled": "Disabled",
+        "interface_placeholder": "Choose an interface",
+        "DHCP_end_label": "IP range end",
+        "DHCP_gateway_label": "Gateway",
+        "dns_server_is_running": "A DNS server is currently running",
+        "DNS_description": "Network names forward and cache service, listening on port 53.",
+        "DNS_secondary_label": "Secondary forwarding server",
+        "DNS_title": "DNS",
+        "dns_server_is_running_description": "You cannot enable the DNS feature because a DNS server is already active on this node. Another application, such as Samba DC, might be using the DNS port.",
+        "dhcp-server_invalid_type": "Number required",
+        "save": "Save",
+        "DHCP_lease_label": "Lease time",
+        "enabled": "Enabled",
+        "dhcp-server_format": "IPv4 format required",
+        "DHCP_enable_label": "Enable DHCP",
+        "DHCP_lease_hint": "Hours",
+        "title": "Instellingen",
+        "dhcp-server_number_gte": "Enter a positive number",
+        "general_description": "Dnsmasq operates only on the private network of its interface",
+        "DHCP_gateway_hint": "Default gateway for the DHCP clients"
+    },
+    "action": {
+        "get-dns-records": "Get DNS records",
+        "list-backup-repositories": "Back-up repositories weergeven",
+        "get-module-info": "Get module info",
+        "list-installed-modules": "List installed modules",
+        "list-backups": "Backups weergeven",
+        "get-status": "Get status",
+        "configure-module": "Configure module",
+        "set-dns-records": "Set DNS records",
+        "get-configuration": "Get configuration",
+        "get-name": "Get name"
+    },
+    "error": {
+        "403": "Opdracht niet goedgekeurd",
+        "records_format": "Invalid format",
+        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "401": "Ongeldige authenticatie",
+        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "generic_error": "Er ging iets mis",
+        "error": "Fout",
+        "network_timeout": "Netwerk time-out",
+        "404": "Bron niet gevonden",
+        "network_error": "Netwerkfout",
+        "validation_error": "Validatiefout"
+    },
+    "dns_records": {
+        "add_dns_record": "Add DNS record",
+        "no_records": "No DNS records",
+        "no_records_description": "There is no DNS record",
+        "address": "IP address",
+        "delete_dns_record": "Delete DNS record",
+        "domain": "Hostname",
+        "title": "DNS records",
+        "search_record": "Search record"
+    },
+    "common": {
+        "edit": "Wijzig",
+        "required": "Vereist",
+        "work_in_progress": "Work in progress",
+        "clear_search": "Wis zoekopdracht",
+        "delete": "Verwijderen",
+        "cancel": "Annuleren",
+        "processing": "Processing...",
+        "no_search_results_description": "Probeer je zoektocht te veranderen",
+        "no_search_results": "Geen resultaten",
+        "close": "Sluiten"
+    },
+    "status": {
+        "created": "Created",
+        "size": "Size",
+        "name": "Name",
+        "no_images": "No images",
+        "app_volumes": "App volume | App volumes",
+        "services": "Service | Services",
+        "app_images": "App image | App images",
+        "no_services": "No services",
+        "app_instance": "App instance",
+        "mount": "Mount",
+        "title": "Status",
+        "installation_node": "Installation node",
+        "node": "Node",
+        "no_volumes": "No volumes"
+    },
+    "pagination": {
+        "items_per_page": "Items per pagina:",
+        "next_page": "Volgende pagina",
+        "page_number": "Paginanummer",
+        "range_of_total_items": "{range} van {total} items",
+        "of_total_pages": "van {total} pagina's",
+        "previous_page": "Vorige pagina"
+    },
+    "about": {
+        "title": "About"
+    },
+    "task": {
+        "cannot_create_task": "Kan taak {action} niet creëren"
+    }
+}
