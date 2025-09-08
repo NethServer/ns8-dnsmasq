@@ -1,4 +1,4 @@
-FROM docker.io/debian:12.10-slim AS base
+FROM docker.io/debian:13.1-slim AS base
 
 FROM base AS build
 # Setup image
