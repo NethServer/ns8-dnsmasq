@@ -42,8 +42,8 @@
         "dns_server_is_running": "Aktuell ist bereits ein DNS-Server gestartet",
         "dns_server_is_running_description": "Das DNS-Feature kann nicht aktiviert werden, da auf diesem Knoten bereits ein DNS-Server aktiv ist. Eine andere Anwendungen (z.B. Samba DC) könnte den DNS-Port verwenden.",
         "DHCP_gateway_label": "Gateway",
-        "DHCP_gateway_hint": "Default gateway for the DHCP clients",
-        "not_in_network": "Address provided is not in the network of the selected interface"
+        "DHCP_gateway_hint": "Standardgateway für die DHCP-Clients",
+        "not_in_network": "Die bereitgestellte Adresse befindet sich nicht im Netzwerk der ausgewählten Schnittstelle"
     },
     "common": {
         "required": "Erforderlich",
@@ -61,7 +61,7 @@
         "created": "Erstellt",
         "size": "Größe",
         "name": "Name",
-        "no_images": "Keine Abbilder",
+        "no_images": "keine Abbilder",
         "app_volumes": "App Volumen | App Volumen",
         "services": "Dienst | Dienste",
         "app_images": "App Abbild | App Abbilder",
