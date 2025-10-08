@@ -7,11 +7,11 @@
         "DNS_primary_label": "முதன்மை பகிர்தல் சேவையகம்",
         "interface_label": "பிணைய இடைமுகம்",
         "general_title": "பொது",
-        "configure_instance": "{உதாரணத்தை உள்ளமைக்கவும்",
+        "configure_instance": "{நிகழ்வை) உள்ளமை",
         "DHCP_start_label": "ஐபி வரம்பு தொடக்க",
         "DHCP_description": "பிணைய வாடிக்கையாளர்கள் கொடுக்கப்பட்ட வரம்பிலிருந்து ஐபி முகவரி குத்தகையைப் பெறுகிறார்கள்.",
         "dns-server_number_one_of": "ஐபிவி 4 அல்லது ஐபிவி 6 தேவை",
-        "disabled": "Disabled",
+        "disabled": "முடக்கப்பட்டது",
         "interface_placeholder": "ஒரு இடைமுகத்தைத் தேர்வுசெய்க",
         "DHCP_end_label": "ஐபி வரம்பு முடிவு",
         "DHCP_gateway_label": "நுழைவாயில்",
@@ -21,41 +21,41 @@
         "DNS_title": "டி.என்.எச்",
         "dns_server_is_running_description": "இந்த முனையில் டிஎன்எச் சேவையகம் ஏற்கனவே செயலில் இருப்பதால் நீங்கள் டிஎன்எச் அம்சத்தை இயக்க முடியாது. சம்பா டி.சி போன்ற மற்றொரு பயன்பாடு டி.என்.எச் போர்ட்டைப் பயன்படுத்தலாம்.",
         "dhcp-server_invalid_type": "தேவை",
-        "save": "Save",
+        "save": "சேமி",
         "DHCP_lease_label": "குத்தகை நேரம்",
-        "enabled": "Enabled",
+        "enabled": "இயக்கப்பட்டது",
         "dhcp-server_format": "ஐபிவி 4 வடிவம் தேவை",
         "DHCP_enable_label": "DHCP ஐ இயக்கு",
         "DHCP_lease_hint": "மணி",
-        "title": "Settings",
+        "title": "அமைப்புகள்",
         "dhcp-server_number_gte": "நேர்மறை எண்ணை உள்ளிடவும்",
         "DHCP_gateway_hint": "DHCP வாடிக்கையாளர்களுக்கான இயல்புநிலை நுழைவாயில்",
         "general_description": "DNSMASQ அதன் இடைமுகத்தின் தனிப்பட்ட நெட்வொர்க்கில் மட்டுமே இயங்குகிறது"
     },
     "error": {
-        "error": "Error",
+        "error": "பிழை",
         "records_format": "தவறான வடிவம்",
-        "403": "Operation not authorized",
-        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
-        "401": "Invalid authentication",
-        "cannot_retrieve_module_info": "Cannot retrieve module info",
-        "generic_error": "Something went wrong",
-        "network_timeout": "Network timeout",
-        "404": "Resource not found",
-        "network_error": "Network error",
-        "validation_error": "Validation error"
+        "403": "செயல்பாடு அங்கீகரிக்கப்படவில்லை",
+        "cannot_retrieve_installed_modules": "நிறுவப்பட்ட தொகுதிகளை மீட்டெடுக்க முடியாது",
+        "401": "தவறான ஏற்பு",
+        "cannot_retrieve_module_info": "தொகுதி தகவலை மீட்டெடுக்க முடியாது",
+        "generic_error": "ஏதோ தவறு நடந்தது",
+        "network_timeout": "பிணைய நேரம் முடிந்தது",
+        "404": "சான்று கிடைக்கவில்லை",
+        "network_error": "பிணைய பிழை",
+        "validation_error": "சரிபார்ப்பு பிழை"
     },
     "action": {
         "get-dns-records": "டிஎன்எச் பதிவுகளைப் பெறுங்கள்",
-        "list-backup-repositories": "List backup repositories",
-        "get-module-info": "Get module info",
-        "list-installed-modules": "List installed modules",
-        "list-backups": "List backups",
-        "get-status": "Get status",
-        "configure-module": "Configure module",
+        "list-backup-repositories": "காப்புப்பிரதி களஞ்சியங்களை பட்டியலிடுங்கள்",
+        "get-module-info": "தொகுதி தகவலைப் பெறுங்கள்",
+        "list-installed-modules": "நிறுவப்பட்ட தொகுதிகள் பட்டியல்",
+        "list-backups": "காப்புப்பிரதிகளை பட்டியலிடுங்கள்",
+        "get-status": "அந்தச்தைப் பெறுங்கள்",
+        "configure-module": "தொகுதியை உள்ளமைக்கவும்",
         "set-dns-records": "டிஎன்எச் பதிவுகளை அமைக்கவும்",
-        "get-configuration": "Get configuration",
-        "get-name": "Get name"
+        "get-configuration": "உள்ளமைவைப் பெறுங்கள்",
+        "get-name": "பெயரைப் பெறுங்கள்"
     },
     "dns_records": {
         "add_dns_record": "டிஎன்எச் பதிவைச் சேர்க்கவும்",
@@ -69,31 +69,31 @@
     },
     "common": {
         "edit": "தொகு",
-        "required": "Required",
-        "work_in_progress": "Work in progress",
+        "required": "தேவை",
+        "work_in_progress": "வேலை முன்னேற்றத்தில் உள்ளது",
         "clear_search": "தேடலை அழி",
-        "delete": "Delete",
-        "cancel": "Cancel",
+        "delete": "அழி",
+        "cancel": "கைவிடு",
         "processing": "செயலாக்கம் ...",
         "no_search_results_description": "உங்கள் தேடல் வினவலை மாற்ற முயற்சிக்கவும்",
         "no_search_results": "முடிவுகள் இல்லை",
-        "close": "Close"
+        "close": "மூடு"
     },
     "status": {
-        "created": "Created",
-        "size": "Size",
-        "name": "Name",
-        "no_images": "No images",
-        "app_volumes": "App volume | App volumes",
-        "services": "Service | Services",
-        "app_images": "App image | App images",
-        "no_services": "No services",
-        "app_instance": "App instance",
-        "mount": "Mount",
-        "title": "Status",
-        "installation_node": "Installation node",
-        "node": "Node",
-        "no_volumes": "No volumes"
+        "created": "உருவாக்கப்பட்டது",
+        "size": "அளவு",
+        "name": "பெயர்",
+        "no_images": "படங்கள் இல்லை",
+        "app_volumes": "பயன்பாட்டு தொகுதி | பயன்பாட்டு தொகுதிகள்",
+        "services": "பணி | சேவைகள்",
+        "app_images": "பயன்பாட்டு படம் | பயன்பாட்டு படங்கள்",
+        "no_services": "சேவைகள் இல்லை",
+        "app_instance": "பயன்பாட்டு நிகழ்வு",
+        "mount": "மவுண்ட்",
+        "title": "நிலை",
+        "installation_node": "நிறுவல் முனை",
+        "node": "கணு",
+        "no_volumes": "தொகுதிகள் இல்லை"
     },
     "pagination": {
         "items_per_page": "ஒரு பக்கத்திற்கு உருப்படிகள்:",
@@ -104,9 +104,9 @@
         "previous_page": "முந்தைய பக்கம்"
     },
     "about": {
-        "title": "About"
+        "title": "பற்றி"
     },
     "task": {
-        "cannot_create_task": "Cannot create task {action}"
+        "cannot_create_task": "பணியை உருவாக்க முடியாது {action}"
     }
 }
