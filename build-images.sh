@@ -14,12 +14,11 @@ images=()
 repobase="${REPOBASE:-ghcr.io/nethserver}"
 
 # build the runtime image
-DNSMASQ_VERSION=2.89
 podman build \
     --force-rm \
     --layers \
     --tag "${repobase}/dnsmasq-server" \
-    .
+    container
 
 images+=("${repobase}/dnsmasq-server")
 
