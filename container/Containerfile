@@ -4,7 +4,7 @@ FROM base AS dist
 # Setup image
 RUN apt-get update \
     && apt-get install -y dnsmasq=2.91-*
-#COPY config
+# COPY config
 COPY dnsmasq.conf /etc/dnsmasq.conf
 # Creating directory for custom configuration and additional hosts
 RUN mkdir -p /etc/dnsmasq.d /etc/dnsmasq_hosts.d
