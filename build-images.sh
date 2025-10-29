@@ -11,7 +11,7 @@ set -e
 # Prepare variables for later use
 images=()
 # The image will be pushed to GitHub container registry
-repobase="${REPOBASE:-ghcr.io/nethserver}"
+repobase="${REPOBASE:-ghcr.io/mrmarkuz}"
 
 # build the runtime image
 DNSMASQ_VERSION=2.89
@@ -19,7 +19,7 @@ podman build \
     --force-rm \
     --layers \
     --tag "${repobase}/dnsmasq-server" \
-    --build-arg "DNSMASQ_VERSION=${DNSMASQ_VERSION}" \
+#    --build-arg "DNSMASQ_VERSION=${DNSMASQ_VERSION}" \
     container
 
 images+=("${repobase}/dnsmasq-server")
