@@ -1,6 +1,6 @@
 FROM docker.io/debian:13.1-slim AS base
 
-FROM base AS build
+FROM base AS dist
 # Setup image
 RUN apt-get update \
     && apt-get install -y dnsmasq
@@ -14,7 +14,7 @@ RUN apt-get update \
 # Build dnsmasq
 #RUN make
 
-FROM base AS dist
+#FROM base AS dist
 # Copy built dnsmasq and configuration
 #COPY --from=build /tmp/dnsmasq/src/dnsmasq /usr/local/sbin/dnsmasq
 COPY dnsmasq.conf /etc/dnsmasq.conf
