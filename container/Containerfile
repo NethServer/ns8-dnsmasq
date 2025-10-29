@@ -3,20 +3,8 @@ FROM docker.io/debian:13.1-slim AS base
 FROM base AS dist
 # Setup image
 RUN apt-get update \
-    && apt-get install -y dnsmasq
-# Download and untar dnsmasq
-#ARG DNSMASQ_VERSION
-##ADD https://dnsmasq.org/dnsmasq-${DNSMASQ_VERSION}.tar.gz /tmp/dnsmasq.tar.gz
-#RUN mkdir -p /tmp/dnsmasq \
-#    && tar -xvf /tmp/dnsmasq.tar.gz -C /tmp/dnsmasq --strip-components=1 \
-#    && rm /tmp/dnsmasq.tar.gz
-#WORKDIR /tmp/dnsmasq
-# Build dnsmasq
-#RUN make
-
-#FROM base AS dist
-# Copy built dnsmasq and configuration
-#COPY --from=build /tmp/dnsmasq/src/dnsmasq /usr/local/sbin/dnsmasq
+    && apt-get install -y dnsmasq=2.91-*
+#COPY config
 COPY dnsmasq.conf /etc/dnsmasq.conf
 # Creating directory for custom configuration and additional hosts
 RUN mkdir -p /etc/dnsmasq.d /etc/dnsmasq_hosts.d

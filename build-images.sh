@@ -11,7 +11,7 @@ set -e
 # Prepare variables for later use
 images=()
 # The image will be pushed to GitHub container registry
-repobase="${REPOBASE:-ghcr.io/mrmarkuz}"
+repobase="${REPOBASE:-ghcr.io/nethserver}"
 
 # build the runtime image
 DNSMASQ_VERSION=2.89
