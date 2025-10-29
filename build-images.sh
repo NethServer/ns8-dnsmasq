@@ -30,7 +30,7 @@ podman build \
     --force-rm \
     --layers \
     --tag "${repobase}/dnsmasq" \
-    --label org.nethserver.images="ghcr.io/nethserver/dnsmasq-server:${IMAGETAG:-latest}" \
+    --label org.nethserver.images="${repobase}/dnsmasq-server:${IMAGETAG:-latest}" \
     .
 
 images+=("${repobase}/dnsmasq")
