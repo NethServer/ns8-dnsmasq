@@ -19,8 +19,7 @@ podman build \
     --force-rm \
     --layers \
     --tag "${repobase}/dnsmasq-server" \
-    --build-arg "DNSMASQ_VERSION=${DNSMASQ_VERSION}" \
-    container
+    .
 
 images+=("${repobase}/dnsmasq-server")
 
