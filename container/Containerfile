@@ -1,6 +1,5 @@
-FROM docker.io/debian:13.1-slim AS base
+FROM docker.io/debian:13.1-slim
 
-FROM base AS dist
 # Setup image
 RUN apt-get update \
     && apt-get install -y dnsmasq=2.91-*
