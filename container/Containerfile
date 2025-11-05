@@ -2,7 +2,7 @@ FROM docker.io/debian:13.1-slim
 
 # Setup image
 RUN apt-get update \
-    && apt-get install -y dnsmasq=2.91-*
+    && apt-get install -y dnsmasq=2.91-1
 # COPY config
 COPY dnsmasq.conf /etc/dnsmasq.conf
 # Creating directory for custom configuration and additional hosts
