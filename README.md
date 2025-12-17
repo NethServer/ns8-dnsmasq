@@ -174,8 +174,19 @@ remove-module --no-preserve <module_instance>
 
 Test the module using the `test-module.sh` script:
 
-```bash
-./test-module.sh <NODE_ADDR> ghcr.io/nethserver/dnsmasq:latest
-```
+    ./test-module.sh <NODE_ADDR> ghcr.io/nethserver/dnsmasq:bug-7537
 
-The tests are made using [Robot Framework](https://robotframework.org/)
+Additional arguments are forwarded to the `robot` command (see [Robot
+Framework](https://robotframework.org/)).
+
+For instance, to speed up testing on a local machine:
+
+1. Skip the instance removal
+
+       ./test-module.sh 10.5.4.1 ghcr.io/nethserver/dnsmasq:bug-7537 --exclude remove
+
+2. Continue to use the Dnsmasq instance, skipping the installation steps.
+   The `--variable` option is required to find the existing Dnsmasq
+   instance.
+
+       ./test-module.sh 10.5.4.1 ghcr.io/nethserver/dnsmasq:bug-7537 --exclude createORremove --variable MID:dnsmasq1
