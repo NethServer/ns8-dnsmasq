@@ -1,4 +1,4 @@
-FROM docker.io/node:24.11.0 AS base
+FROM docker.io/node:24.12.0 AS base
 RUN corepack enable \
     && yarn set version berry
 WORKDIR /app
