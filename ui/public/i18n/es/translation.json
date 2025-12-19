@@ -2,7 +2,7 @@
     "error": {
         "403": "Operación no autorizada",
         "cannot_retrieve_installed_modules": "No se pueden recuperar los módulos instalados",
-        "401": "Autentificación inválida",
+        "401": "Autenticación no válida",
         "cannot_retrieve_module_info": "No se puede recuperar la información del módulo",
         "generic_error": "Algo ha salido mal",
         "error": "Error",
@@ -15,7 +15,7 @@
     "settings": {
         "configure_instance": "Configurar {instance}",
         "save": "Guardar",
-        "title": "Ajustes",
+        "title": "Configuración",
         "dns-server_format": "Se requiere formato IPv4",
         "DHCP_description": "Los clientes de la red reciben una concesión de la dirección IP del rango dado.",
         "dns-server_number_one_of": "Se requiere formato IPv4 o IPv6",
@@ -62,7 +62,7 @@
         "size": "Tamaño",
         "name": "Nombre",
         "no_images": "Sin imágenes",
-        "app_volumes": "Volumen de la aplicación| Volumen de las aplicaciones",
+        "app_volumes": "Volumen de la aplicación | Volúmenes de las aplicaciones",
         "services": "Servicio | Servicios",
         "app_images": "Imagen de la aplicación| Imágenes de las aplicaciones",
         "no_services": "Sin servicios",
@@ -71,20 +71,20 @@
         "title": "Estado",
         "installation_node": "Nodo de la instalación",
         "node": "Nodo",
-        "no_volumes": "Sin volumenes"
+        "no_volumes": "Sin volúmenes"
     },
     "about": {
         "title": "Acerca de"
     },
     "action": {
-        "list-backup-repositories": "Mostrar repositorios de respaldo",
+        "list-backup-repositories": "Enumerar repositorios de respaldo",
         "get-module-info": "Obtener información del módulo",
-        "list-installed-modules": "Lista de módulos instalados",
-        "list-backups": "Mostrar copias de seguridad",
-        "get-status": "Obtener el estado",
-        "configure-module": "Configurar el módulo",
-        "get-configuration": "Obtener los ajustes",
-        "get-name": "Obtener el nombre",
+        "list-installed-modules": "Enumerar módulos instalados",
+        "list-backups": "Enumerar respaldos",
+        "get-status": "Obtener estado",
+        "configure-module": "Configurar módulo",
+        "get-configuration": "Obtener configuración",
+        "get-name": "Obtener nombre",
         "get-dns-records": "Obtener registros DNS",
         "set-dns-records": "Establecer registros DNS"
     },
