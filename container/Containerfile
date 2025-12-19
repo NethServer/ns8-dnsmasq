@@ -1,5 +1,5 @@
 # renovate-debian: suite=trixie
-FROM docker.io/debian:13.1-slim
+FROM docker.io/debian:13.2-slim
 
 # Setup image
 RUN apt-get update \
