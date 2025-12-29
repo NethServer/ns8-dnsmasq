@@ -7,7 +7,7 @@
         "DNS_primary_label": "முதன்மை பகிர்தல் சேவையகம்",
         "interface_label": "பிணைய இடைமுகம்",
         "general_title": "பொது",
-        "configure_instance": "{நிகழ்வை) உள்ளமை",
+        "configure_instance": "{instance} ஐ உள்ளமை",
         "DHCP_start_label": "ஐபி வரம்பு தொடக்க",
         "DHCP_description": "பிணைய வாடிக்கையாளர்கள் கொடுக்கப்பட்ட வரம்பிலிருந்து ஐபி முகவரி குத்தகையைப் பெறுகிறார்கள்.",
         "dns-server_number_one_of": "ஐபிவி 4 அல்லது ஐபிவி 6 தேவை",
@@ -38,24 +38,24 @@
         "403": "செயல்பாடு அங்கீகரிக்கப்படவில்லை",
         "cannot_retrieve_installed_modules": "நிறுவப்பட்ட தொகுதிகளை மீட்டெடுக்க முடியாது",
         "401": "தவறான ஏற்பு",
-        "cannot_retrieve_module_info": "தொகுதி தகவலை மீட்டெடுக்க முடியாது",
-        "generic_error": "ஏதோ தவறு நடந்தது",
-        "network_timeout": "பிணைய நேரம் முடிந்தது",
+        "cannot_retrieve_module_info": "தொகுதி தகவலை மீட்டெடுக்க முடியவில்லை",
+        "generic_error": "ஏதோ தவறாகிவிட்டது",
+        "network_timeout": "பிணையம் நேரம் முடிந்தது",
         "404": "சான்று கிடைக்கவில்லை",
-        "network_error": "பிணைய பிழை",
+        "network_error": "பிணையம் பிழை",
         "validation_error": "சரிபார்ப்பு பிழை"
     },
     "action": {
         "get-dns-records": "டிஎன்எச் பதிவுகளைப் பெறுங்கள்",
-        "list-backup-repositories": "காப்புப்பிரதி களஞ்சியங்களை பட்டியலிடுங்கள்",
+        "list-backup-repositories": "காப்புப் பிரதி களஞ்சியங்களைப் பட்டியலிடுங்கள்",
         "get-module-info": "தொகுதி தகவலைப் பெறுங்கள்",
-        "list-installed-modules": "நிறுவப்பட்ட தொகுதிகள் பட்டியல்",
+        "list-installed-modules": "நிறுவப்பட்ட தொகுதிகளை பட்டியலிடுங்கள்",
         "list-backups": "காப்புப்பிரதிகளை பட்டியலிடுங்கள்",
         "get-status": "அந்தச்தைப் பெறுங்கள்",
         "configure-module": "தொகுதியை உள்ளமைக்கவும்",
         "set-dns-records": "டிஎன்எச் பதிவுகளை அமைக்கவும்",
         "get-configuration": "உள்ளமைவைப் பெறுங்கள்",
-        "get-name": "பெயரைப் பெறுங்கள்"
+        "get-name": "பெயர் பெறவும்"
     },
     "dns_records": {
         "add_dns_record": "டிஎன்எச் பதிவைச் சேர்க்கவும்",
@@ -70,11 +70,11 @@
     "common": {
         "edit": "தொகு",
         "required": "தேவை",
-        "work_in_progress": "வேலை முன்னேற்றத்தில் உள்ளது",
+        "work_in_progress": "வேலை நடந்து கொண்டிருக்கிறது",
         "clear_search": "தேடலை அழி",
-        "delete": "அழி",
-        "cancel": "கைவிடு",
-        "processing": "செயலாக்கம் ...",
+        "delete": "நீக்கு",
+        "cancel": "ரத்துசெய்",
+        "processing": "செயலாக்குகிறது...",
         "no_search_results_description": "உங்கள் தேடல் வினவலை மாற்ற முயற்சிக்கவும்",
         "no_search_results": "முடிவுகள் இல்லை",
         "close": "மூடு"
@@ -84,8 +84,8 @@
         "size": "அளவு",
         "name": "பெயர்",
         "no_images": "படங்கள் இல்லை",
-        "app_volumes": "பயன்பாட்டு தொகுதி | பயன்பாட்டு தொகுதிகள்",
-        "services": "பணி | சேவைகள்",
+        "app_volumes": "பயன்பாட்டின் அளவு | பயன்பாட்டின் தொகுதிகள்",
+        "services": "சேவை | சேவைகள்",
         "app_images": "பயன்பாட்டு படம் | பயன்பாட்டு படங்கள்",
         "no_services": "சேவைகள் இல்லை",
         "app_instance": "பயன்பாட்டு நிகழ்வு",
@@ -107,6 +107,6 @@
         "title": "பற்றி"
     },
     "task": {
-        "cannot_create_task": "பணியை உருவாக்க முடியாது {action}"
+        "cannot_create_task": "பணி {action} ஐ உருவாக்க முடியாது"
     }
 }
