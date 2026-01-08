@@ -42,6 +42,7 @@ with open("dnsmasq.d/00config.conf", "w") as file:
     # write interface only if dhcp-server or dns-server are enabled
     if config["dhcp-server"]["enabled"] or config["dns-server"]["enabled"]:
         file.write("interface=" + config["interface"] + "\n")
+        file.write("bind-interfaces\n")
 
     # write dhcp-server configuration
     if config["dhcp-server"]["enabled"]:
