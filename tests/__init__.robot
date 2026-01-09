@@ -29,7 +29,6 @@ Suite Setup       Run Keywords
                   ...    Connect to the Node
                   ...    Wait until boot completes
                   ...    Save the journal begin timestamp
-                  ...    Disable systemd-resolved stub resolver
 
 Suite Teardown    Run Keywords
                   ...    Collect the suite journal
