@@ -24,15 +24,11 @@ Collect the suite journal
     Execute Command    journalctl >>journal-dump.log
     Get File    journal-dump.log    ${OUTPUT DIR}/journal-${SUITE NAME}.log
 
-Disable systemd-resolved stub resolver
-    Execute Command    printf '[Resolve]\nDNSStubListener=no\n' > /etc/systemd/resolved.conf.d/disable-stub.conf && systemctl try-restart systemd-resolved || :
-
 *** Settings ***
 Suite Setup       Run Keywords
                   ...    Connect to the Node
                   ...    Wait until boot completes
                   ...    Save the journal begin timestamp
-                  ...    Disable systemd-resolved stub resolver
 
 Suite Teardown    Run Keywords
                   ...    Collect the suite journal
