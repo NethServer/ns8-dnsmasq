@@ -44,14 +44,14 @@ Check DNSmasq config
     Should Be Equal As Integers    ${rc}  0
 
 Check DNS service
-    ${out}  ${err}  ${rc} =  Execute Command    ss -lunp | grep ':53'
+    ${out}  ${err}  ${rc} =  Execute Command    ss -lunp src 127.0.0.1:53
     ...    return_rc=True    return_stderr=True
-    Should Be Equal As Integers    ${rc}  0
+    Should Contain    ${out}    dnsmasq
 
 Check DHCP service
     ${out}  ${err}  ${rc} =  Execute Command    ss -lunp | grep ':67'
     ...    return_rc=True    return_stderr=True
-    Should Be Equal As Integers    ${rc}  0
+    Should Contain    ${out}    dnsmasq
 
 
 Check module removal
