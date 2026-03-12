@@ -1445,6 +1445,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/telemetry@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@carbon/telemetry@npm:0.1.0"
+  bin:
+    carbon-telemetry: bin/carbon-telemetry.js
+  checksum: 10c0/63ccb4de06beab043d8366da6391ba30e11e86479d84e58f3c486695cde5d93a5615034b3e5c802c50a54b18fe916cdcad075859d29510ea985b175974603c9e
+  languageName: node
+  linkType: hard
+
 "@carbon/vue@npm:^2.40.0":
   version: 2.40.0
   resolution: "@carbon/vue@npm:2.40.0"
@@ -3831,14 +3840,14 @@ __metadata:
   linkType: hard
 
 "carbon-components@npm:^10.41.0":
-  version: 10.46.0
-  resolution: "carbon-components@npm:10.46.0"
+  version: 10.59.2
+  resolution: "carbon-components@npm:10.59.2"
   dependencies:
-    "@carbon/telemetry": "npm:0.0.0-alpha.6"
+    "@carbon/telemetry": "npm:0.1.0"
     flatpickr: "npm:4.6.1"
     lodash.debounce: "npm:^4.0.8"
     warning: "npm:^3.0.0"
-  checksum: 10c0/cc66b74b9ce494d4f7af38032b2fb2c1181d313eb89b10938c189329dc5e719eb5f17d207b568fbd978b3def85448671adced3bd910762b9eda4a490e94ecd40
+  checksum: 10c0/e39f19eda6b6b09448e90ff7ee9021bd574fa47b943035fe1d9ba55dc7e9b0ad361eda76cec096f969066905adad2376f4ab11e7e540e24dccb92b262b1bc848
   languageName: node
   linkType: hard
 
