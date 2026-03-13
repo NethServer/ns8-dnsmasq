@@ -3172,13 +3172,13 @@ __metadata:
   linkType: hard
 
 "axios@npm:^0.30.0":
-  version: 0.30.2
-  resolution: "axios@npm:0.30.2"
+  version: 0.30.3
+  resolution: "axios@npm:0.30.3"
   dependencies:
     follow-redirects: "npm:^1.15.4"
     form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/dcac79c2772213b83e62cb91c5eb82f77fc2079640854434c509d79c8e76f426646d1977214dfa8509c1c45de012277842d78e0f0b3766923cf9b4b705839d4c
+  checksum: 10c0/3b964bcc70a9c0b783cb549aa26f1d96180c22984112e72d9550ba92bbaa9c0af13fda48a2d5488ad33c25bb9b5fddaf3bf22c0b8c160d2575db039d91fbd724
   languageName: node
   linkType: hard
 
