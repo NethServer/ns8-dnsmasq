@@ -12824,11 +12824,11 @@ __metadata:
   linkType: hard
 
 "vue-date-fns@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "vue-date-fns@npm:2.0.1"
+  version: 2.0.2
+  resolution: "vue-date-fns@npm:2.0.2"
   dependencies:
     date-fns: "npm:^2.0.0"
-  checksum: 10c0/a23e7cbd3054104903a7752eef89147a18f160cb421c081fbb09b9128e5eaa7620b53ece325bbffc83bdccefa4bb4b80c4a8cb5b757fe750711e87705a57ae44
+  checksum: 10c0/c3a70d0df25e8c45de71e9f10bc1d076485ebf6b8598ebc42d2e7125369cde2f7f49347dbe237fbae034b97da6195556c146948f0099c08ebad4b640ff01e85e
   languageName: node
   linkType: hard
 
