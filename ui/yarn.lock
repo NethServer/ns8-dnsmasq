@@ -12833,11 +12833,11 @@ __metadata:
   linkType: hard
 
 "vue-debounce@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "vue-debounce@npm:4.0.0"
+  version: 4.0.1
+  resolution: "vue-debounce@npm:4.0.1"
   peerDependencies:
     vue: ">= 2.0.0"
-  checksum: 10c0/3bf72fd0367dc551207a69570dcc2ca07509539f70cfb5d1d918ad924a7d7e072c2d0943794e1966f2c7931d4c4978878e5c74bb73572207f7748068b399f6bb
+  checksum: 10c0/d27fb67ca583e20875760bed59223cec116ecbbd41605448f541f8262f10c8e9445c09755bc41759ebe0a7bf67bd5d6e79613f9cb3685bb36e7174472a027246
   languageName: node
   linkType: hard
 
