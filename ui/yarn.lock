@@ -8391,11 +8391,11 @@ __metadata:
   linkType: hard
 
 "lottie-web-vue@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "lottie-web-vue@npm:1.2.0"
+  version: 1.2.1
+  resolution: "lottie-web-vue@npm:1.2.1"
   dependencies:
     lottie-web: "npm:^5.7.4"
-  checksum: 10c0/3a193aa04f8c27f718b73ca6b8bc3d6fe6516aa6fa6b8c3d42e2431ee0169867384eb574498ac606ba59c165d8c11ca71101addae930493aa2be398104e0681d
+  checksum: 10c0/9605875c3edb89e957430d6d03fa575f4890347484b2090cc404bc8b6059e3a1cf87c8f7aeb052c7febf189ac073fb21ed92295b75c23ab917b1f1d8225a0f06
   languageName: node
   linkType: hard
 
