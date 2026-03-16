@@ -4471,9 +4471,9 @@ __metadata:
   linkType: hard
 
 "core-js@npm:^3.15.2, core-js@npm:^3.6.5":
-  version: 3.15.2
-  resolution: "core-js@npm:3.15.2"
-  checksum: 10c0/4489210376ec87e4d981126a160a95c915190d1b2d9ccf6ba11eba9d417906dce0c0e98a82da1188907e7a55206955de22b7681871698f8bfb8d099e5f77ad0d
+  version: 3.48.0
+  resolution: "core-js@npm:3.48.0"
+  checksum: 10c0/6c3115900dd7cce9fab74c07cb262b3517fc250d02e8fd2ff34f80bda5f43a28482a909dbc4491dc6e1ddd9807f57a7df4c3eeecd1f202b7d9c8bfe25f9d680c
   languageName: node
   linkType: hard
 
