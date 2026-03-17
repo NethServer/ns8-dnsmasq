@@ -10925,8 +10925,8 @@ __metadata:
   linkType: hard
 
 "sass-loader@npm:^10.1.1":
-  version: 10.2.0
-  resolution: "sass-loader@npm:10.2.0"
+  version: 10.5.2
+  resolution: "sass-loader@npm:10.5.2"
   dependencies:
     klona: "npm:^2.0.4"
     loader-utils: "npm:^2.0.0"
@@ -10935,7 +10935,7 @@ __metadata:
     semver: "npm:^7.3.2"
   peerDependencies:
     fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
     sass: ^1.3.0
     webpack: ^4.36.0 || ^5.0.0
   peerDependenciesMeta:
@@ -10945,7 +10945,7 @@ __metadata:
       optional: true
     sass:
       optional: true
-  checksum: 10c0/c328f4e26855a0c9c31fedb1a2258ed2c8aa9ea6f064f5d73454abfacac4d1eab1c1829e3d6730f53503ab8eb3434db1a8608831070340e6ac0257b502d57643
+  checksum: 10c0/5ba4a83459fbb50e21d4f4b1b59baf1ddf8dd404099b6d1f2ec887c6903659e505879915030dd9efb1c6dd5fde2d515a19f418487b73d1cc59f6aad60c79bcf5
   languageName: node
   linkType: hard
 
