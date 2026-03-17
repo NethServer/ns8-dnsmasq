@@ -12602,12 +12602,12 @@ __metadata:
   linkType: hard
 
 "vue-axios@npm:^3.2.4":
-  version: 3.2.4
-  resolution: "vue-axios@npm:3.2.4"
+  version: 3.5.2
+  resolution: "vue-axios@npm:3.5.2"
   peerDependencies:
-    axios: ">= 0.20.0"
-    vue: ^ 3.0.0 || ^ 2.0.0
-  checksum: 10c0/8310008e06676efa243f1aa6a6546203f83acc30d5a54101471018969209a53b2d4ba95f7f25ceb06977eb0be3e0e7bf9c066a81e4f16d8139afe2f867177328
+    axios: "*"
+    vue: ^3.0.0 || ^2.0.0
+  checksum: 10c0/2899399e27f4fd925fb3dfeb5325c921e780218aeccab265506b8c120ac07611939071f9b92fd384d07bc93e7e4378f2a5b0937a39cbaa196c3395077777b0e4
   languageName: node
   linkType: hard
 
