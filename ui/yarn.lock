@@ -3277,14 +3277,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.30.0":
-  version: 0.30.3
-  resolution: "axios@npm:0.30.3"
+"axios@npm:^0.31.0":
+  version: 0.31.0
+  resolution: "axios@npm:0.31.0"
   dependencies:
     follow-redirects: "npm:^1.15.4"
     form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/3b964bcc70a9c0b783cb549aa26f1d96180c22984112e72d9550ba92bbaa9c0af13fda48a2d5488ad33c25bb9b5fddaf3bf22c0b8c160d2575db039d91fbd724
+  checksum: 10c0/772e7cb67c95d0f189fbead5e3fc5a26b5de467ae05c92196e3cdf56642e7586376fb91ff0355a91a07987bbdd3db1e1005feca2ae469a862c918dceca293ac5
   languageName: node
   linkType: hard
 
@@ -12247,7 +12247,7 @@ __metadata:
     "@vue/cli-service": "npm:~4.5.0"
     "@vue/eslint-config-prettier": "npm:^6.0.0"
     await-to-js: "npm:^3.0.0"
-    axios: "npm:^0.30.0"
+    axios: "npm:^0.31.0"
     carbon-components: "npm:^10.41.0"
     core-js: "npm:^3.6.5"
     eslint: "npm:^6.7.2"
