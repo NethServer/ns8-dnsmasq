@@ -1,4 +1,4 @@
-FROM docker.io/node:24.22.1 AS base
+FROM docker.io/node:26.12.1 AS base
 RUN npm install -g corepack \
     && corepack enable
 WORKDIR /app
