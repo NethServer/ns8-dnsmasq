@@ -1,6 +1,6 @@
 FROM docker.io/node:24.22.1 AS base
-RUN corepack enable \
-    && yarn set version berry
+RUN npm install -g corepack \
+    && corepack enable
 WORKDIR /app
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
