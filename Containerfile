@@ -1,5 +1,7 @@
 FROM docker.io/node:26.12.1 AS base
-RUN npm install -g corepack \
+# renovate: datasource=npm packageName=corepack
+ARG COREPACK_VERSION=0.36.0
+RUN npm install -g corepack@${COREPACK_VERSION} \
     && corepack enable
 WORKDIR /app
 ENV NODE_OPTIONS=--openssl-legacy-provider
