@@ -1,4 +1,4 @@
-FROM docker.io/node:26.12.1 AS base
+FROM docker.io/node:26.13.0 AS base
 # renovate: datasource=npm packageName=corepack
 ARG COREPACK_VERSION=0.36.0
 RUN npm install -g corepack@${COREPACK_VERSION} \
